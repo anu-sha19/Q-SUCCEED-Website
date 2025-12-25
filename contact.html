@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background:#0b1220;
+      color:#e5e7eb;
+      overflow-x:hidden;
+    }
+
+    /* NAV */
+    .navbar{
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding: 1rem 2rem;
+      background: rgba(10, 17, 82, 0.45);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .logo{
+      font-weight:800;
+      letter-spacing:0.3px;
+      color:#e5e7eb;
+      font-size:1.25rem;
+    }
+    .navbar nav a{
+      margin-left: 1.6rem;
+      text-decoration:none;
+      color:#cbd5e1;
+      font-weight:600;
+    }
+    .navbar nav a:hover{ color:#ffffff; }
+
+    /* BACKGROUND */
+    .bg{
+      position:relative;
+      padding: 4.5rem 1rem 6rem;
+      background:
+        radial-gradient(900px 500px at 15% 20%, rgba(79,70,229,0.35), transparent 60%),
+        radial-gradient(900px 500px at 85% 35%, rgba(99,102,241,0.28), transparent 60%),
+        radial-gradient(700px 450px at 45% 95%, rgba(199,210,254,0.22), transparent 60%),
+        linear-gradient(180deg, #0b1220 0%, #0b1220 60%, #0a0f1c 100%);
+    }
+    .bg::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: radial-gradient(circle at 50% 30%, rgba(0,0,0,0.9), transparent 70%);
+      pointer-events:none;
+      opacity:0.35;
+    }
+
+    .container{
+      position:relative;
+      z-index:1;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .header h1{
+      margin:0 0 0.6rem;
+      font-size: clamp(2rem, 3.2vw, 3rem);
+      color:#ffffff;
+      letter-spacing:-0.02em;
+    }
+    .header p{
+      margin:0 0 1.8rem;
+      max-width: 820px;
+      color:#cbd5e1;
+      line-height:1.7;
+      font-size:1.05rem;
+    }
+
+    .card{
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border-radius: 22px;
+      padding: 2rem;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    label{
+      display:block;
+      font-size: 0.9rem;
+      color:#cbd5e1;
+      margin-bottom: 0.35rem;
+      font-weight: 650;
+    }
+
+    input, textarea{
+      width:100%;
+      padding: 0.85rem 0.95rem;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color:#ffffff;
+      outline: none;
+    }
+    textarea{
+      min-height: 140px;
+      resize: vertical;
+    }
+    input:focus, textarea:focus{
+      border-color: rgba(199,210,254,0.65);
+      box-shadow: 0 0 0 4px rgba(99,102,241,0.18);
+    }
+
+    .hint{
+      margin-top: 0.6rem;
+      font-size: 0.95rem;
+      color:#e5e7eb;
+      line-height:1.6;
+      opacity: 0.95;
+    }
+
+    .actions{
+      margin-top: 1.2rem;
+      display:flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+
+    button{
+      border: none;
+      padding: 0.9rem 1.2rem;
+      border-radius: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      color:#0b1220;
+      background: linear-gradient(135deg, #c7d2fe, #a5b4fc);
+    }
+    button:hover{ filter: brightness(1.05); }
+
+    .note{
+      color:#cbd5e1;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 820px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="logo">Q-SUCCEED</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="bg">
+    <div class="container">
+
+      <section class="header">
+        <h1>Contact</h1>
+        <p>
+          If you are interested, please fill out this form. Your information will be sent to our Google Form
+          for review.
+        </p>
+      </section>
+
+      <section class="card">
+        <form id="interestForm">
+          <div class="grid">
+            <div>
+              <label for="firstName">First Name</label>
+              <input id="firstName" name="firstName" type="text" required />
+            </div>
+
+            <div>
+              <label for="lastName">Last Name</label>
+              <input id="lastName" name="lastName" type="text" required />
+            </div>
+          </div>
+
+          <div class="grid" style="margin-top: 1rem;">
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required />
+            </div>
+
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <label for="about">Tell us a bit about yourself</label>
+            <textarea id="about" name="about" required></textarea>
+          </div>
+
+          <div class="hint">
+            Next step: you’ll be taken to the official Google Form to
+            upload your Resume/CV and submit.
+          </div>
+
+          <div class="actions">
+            <button type="submit">Continue to Resume Upload</button>
+          </div>
+        </form>
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    
+    const GOOGLE_FORM_VIEW_URL = "https://docs.google.com/forms/d/e/1FAIpQLSd02xGSNS8czNeI2ehsXmlcvFtI71OaFSWD9wPbdL9e4Bunog/viewform";
+
+    const ENTRY_FIRST_NAME   = "entry.1638611941";
+    const ENTRY_LAST_NAME    = "entry.1996411012";
+    const ENTRY_EMAIL        = "entry.1004230311";
+    const ENTRY_ABOUT        = "entry.1714567853";
+
+    document.getElementById("interestForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const firstName   = document.getElementById("firstName").value.trim();
+      const lastName    = document.getElementById("lastName").value.trim();
+      const email       = document.getElementById("email").value.trim();
+      const about       = document.getElementById("about").value.trim();
+
+      const params = new URLSearchParams();
+      params.set(ENTRY_FIRST_NAME, firstName);
+      params.set(ENTRY_LAST_NAME, lastName);
+      params.set(ENTRY_EMAIL, email);
+      params.set(ENTRY_ABOUT, about);
+
+      window.location.href = `${GOOGLE_FORM_VIEW_URL}?${params.toString()}`;
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color:#111827;
+      background:#0b1220;
+      overflow-x:hidden;
+    }
+
+    /* NAV */
+    .navbar{
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding: 1rem 2rem;
+      background: rgba(10, 17, 82, 0.45);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .logo{
+      font-weight:800;
+      letter-spacing:0.3px;
+      color:#e5e7eb;
+      font-size:1.25rem;
+    }
+    .navbar nav a{
+      margin-left: 1.6rem;
+      text-decoration:none;
+      color:#cbd5e1;
+      font-weight:600;
+    }
+    .navbar nav a:hover{ color:#ffffff; }
+
+    /* BACKGROUND */
+    .bg{
+      position:relative;
+      padding: 4.5rem 1rem 6rem;
+      background:
+        radial-gradient(900px 500px at 15% 20%, rgba(79,70,229,0.35), transparent 60%),
+        radial-gradient(900px 500px at 85% 35%, rgba(99,102,241,0.28), transparent 60%),
+        radial-gradient(700px 450px at 45% 95%, rgba(199,210,254,0.22), transparent 60%),
+        linear-gradient(180deg, #0b1220 0%, #0b1220 60%, #0a0f1c 100%);
+    }
+
+    .bg::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: radial-gradient(circle at 50% 30%, rgba(0,0,0,0.9), transparent 70%);
+      pointer-events:none;
+      opacity:0.35;
+    }
+
+    /* HEADER */
+    .header{
+      position:relative;
+      z-index:1;
+      max-width:1100px;
+      margin: 0 auto 2.5rem;
+      padding: 0 1rem;
+    }
+    .header h1{
+      margin:0 0 0.6rem;
+      font-size: clamp(2rem, 3.2vw, 3rem);
+      color:#ffffff;
+      letter-spacing:-0.02em;
+    }
+    .header p{
+      margin:0;
+      max-width: 760px;
+      color:#cbd5e1;
+      line-height:1.7;
+      font-size:1.05rem;
+    }
+
+    /* POSTER */
+    .poster-wrap{
+      position:relative;
+      z-index:1;
+      max-width:1100px;
+      margin: 0 auto 4rem;
+      padding: 0 1rem;
+    }
+    .poster-stage{
+      border-radius: 24px;
+      overflow:hidden;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.06);
+    }
+    .poster-topbar{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.07);
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .dot{ width:10px; height:10px; border-radius:999px; background: rgba(255,255,255,0.22); }
+    .poster-label{
+      margin-left: 10px;
+      color:#e5e7eb;
+      font-weight:700;
+      font-size:0.95rem;
+      letter-spacing:0.2px;
+    }
+    .poster-iframe{
+      width:100%;
+      height: 68vh;
+      min-height: 560px;
+      border:none;
+      display:block;
+      background:#ffffff;
+    }
+
+    /* ABOUT SECTION */
+    .about-section{
+      position:relative;
+      z-index:1;
+      max-width:900px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .about-card{
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border-radius: 22px;
+      padding: 2.8rem;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+      color:#f8fafc;
+    }
+    .about-card h2{
+      margin-top:0;
+      font-size: 2rem;
+      letter-spacing:-0.02em;
+    }
+    .about-card p{
+      color:#e5e7eb;
+      line-height:1.8;
+      font-size:1.05rem;
+      margin-bottom:1.2rem;
+    }
+
+    @media (max-width: 900px){
+      .poster-iframe{ height: 58vh; min-height: 460px; }
+      .about-card{ padding: 2rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="logo">Q-SUCCEED-CNY</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="bg">
+
+    <section class="header">
+      <h1>About the Initiative</h1>
+      <p>
+        A focused overview of the project, with the program poster featured
+        prominently below.
+      </p>
+    </section>
+
+    <!-- POSTER -->
+    <section class="poster-wrap">
+      <div class="poster-stage">
+        <div class="poster-topbar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="poster-label">Program Poster</span>
+        </div>
+
+        <iframe
+          class="poster-iframe"
+          src="images/poster.pdf#view=FitH&toolbar=0&navpanes=0"
+          title="Project Poster PDF">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about-section">
+      <div class="about-card">
+        <h2>Program Overview</h2>
+
+        <p>
+          This initiative focuses on strengthening workforce pathways in
+          semiconductor and quantum-related technologies through integrated
+          education, experiential learning, and industry engagement.
+        </p>
+
+        <p>
+          The poster above highlights the program structure, objectives, and
+          anticipated regional impact.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
