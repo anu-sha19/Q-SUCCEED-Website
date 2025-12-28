@@ -1,127 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Q-SUCCEED-CNY| Syracuse University</title>
-  
-  <link rel="icon" type="image/png" href="" />
+  <title>Q-SUCCEED-CNY | Syracuse University</title>
   <meta name="description" content="Q-SUCCEED-CNY">
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-
 <body>
+  <canvas id="canvas3d"></canvas>
+
   <!-- Header -->
   <header class="header">
     <div class="logo">
-      <h1 class="hero-title">Q-SUCCEED-CNY</h1>
+      <h1>Q-SUCCEED-CNY</h1>
     </div>
-    <div class="nav-right">
-      <nav class="desktop-nav">
-         <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-menu-close" id="menuClose">&times;</button>
-    <nav>
+    <nav class="desktop-nav">
       <a href="about.html">About</a>
+      <a href="#team">Team</a>
       <a href="contact.html">Contact</a>
     </nav>
-  </div>
+  </header>
 
   <!-- Hero Section -->
   <section class="hero">
+    <div class="hero-overlay"></div>
     <div class="hero-content">
-      <div class="hero-text">
-        <h2 class="hero-subtitle">Quantum and Semi-Conductor Upskilling for Career Change through Experiential Education Deployment in Central New York</h2>
+      <h1 class="hero-title-3d">Q-SUCCEED-CNY</h1>
+      <div class="hero-subtitle-box">
+        <h2 class="hero-subtitle">
+          Quantum and Semi-Conductor Upskilling for Career Change through
+          Experiential Education Deployment in Central New York
+        </h2>
       </div>
     </div>
+    <div class="scroll-indicator"></div>
   </section>
 
   <!-- Main Content -->
-  <div class="main-content">
-    <div class="content-left">
+  <div class="main-content" id="about">
+    <div class="content-card">
+      <div class="card-border"></div>
       <div class="intro-box">
-        <h2>Q-SUCCEED-CNY provides adult learners—including blue-collar workers, mid-career non-technical professionals, veterans, and individuals without prior high-tech experience—with structured exposure to semiconductor, optics, and quantum technology careers</h2>
+        <h2>Empowering Adult Learners in Central New York</h2>
+        <p class="experiential-para">
+          Q-SUCCEED-CNY provides adult learners—including blue-collar workers, mid-career non-technical professionals, veterans, and individuals without prior high-tech experience—with structured exposure to semiconductor, optics, and quantum technology careers.
+        </p>
+        <p>
+          Q-SUCCEED-CNY is a workforce development initiative designed to help adults in the Syracuse and Central New York region explore and transition into careers in semiconductor, photonics, and emerging quantum technologies.
+        </p>
+        <p>
+          As historic investments—such as Micron's expansion in North Syracuse—create thousands of high-tech job opportunities, many local workers remain unaware of these pathways or lack access to relevant training. Q-SUCCEED-CNY addresses this gap by providing hands-on, experiential learning opportunities, industry-aligned workshops, and career exploration activities for career changers, veterans, and individuals without prior STEM backgrounds.
+        </p>
+        <p>
+          By building foundational technical skills, confidence, and industry connections, the project serves as an accessible entry point into rapidly growing semiconductor and quantum-adjacent industries, helping to strengthen the regional workforce and support Central New York's economic transformation.
+        </p>
       </div>
-      
-      <img src="" alt="Q-SUCCEED Logo" class="witec-logo">
-      
-      <p class="experiential-para">Q-SUCCEED-CNY is a workforce development initiative designed to help adults in the Syracuse and Central New York region explore and transition into careers in semiconductor, photonics, and emerging quantum technologies..</p>
-      
-      <p>As historic investments—such as Micron’s expansion in North Syracuse—create thousands of high-tech job opportunities, many local workers remain unaware of these pathways or lack access to relevant training. Q-SUCCEED-CNY addresses this gap by providing hands-on, experiential learning opportunities, industry-aligned workshops, and career exploration activities for career changers, veterans, and individuals without prior STEM backgrounds.</p>
-      
-      <p>By building foundational technical skills, confidence, and industry connections, the project serves as an accessible entry point into rapidly growing semiconductor and quantum-adjacent industries, helping to strengthen the regional workforce and support Central New York’s economic transformation.</p>
-      
-      <div class="student-board" id="join-us">
-        <h3>Project Team</h3>
-        <p>Principal Investigator – Dr. Moamer Hasanovic</p>
-        <p>Co-Principal Investigator – Dr. Prasanta K. Ghosh</p>
-        <p>Project Coordinator – Anusha Ghimire</p>
-      </div>
-      
-      <a href="about.html" class="learn-more-btn">Learn More About Q-SUCCEED</a>
     </div>
-
   </div>
 
-  <!-- Images Section -->
-  <section class="three-images-section">
-    <div class="image-grid">
-      <div class="image-box">
-        <img src="images/IMG_20251108_154331.jpg" alt="Q-SUCCEED Image 1">
+  <!-- 3D Image Section -->
+  <section class="images-3d-section">
+    <div class="image-grid-3d">
+      <div class="image-card-3d">
+        <img src="images/IMG_20251108_154331.jpg" alt="Q-SUCCEED Program Activity 1" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a1152%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%23e36515%22 x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2224%22%3EWorkshop%201%3C/text%3E%3C/svg%3E'">
       </div>
-      <div class="image-box">
-        <img src="images/IMG_20251108_154425.jpg" alt="Q-SUCCEED Image 2">
+      <div class="image-card-3d">
+        <img src="images/IMG_20251108_154425.jpg" alt="Q-SUCCEED Program Activity 2" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a1152%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%23e36515%22 x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2224%22%3EWorkshop%202%3C/text%3E%3C/svg%3E'">
       </div>
-      <div class="image-box">
-        <img src="images/IMG_20251108_154853.jpg" alt="Q-SUCCEED Image 3">
+      <div class="image-card-3d">
+        <img src="images/IMG_20251108_154853.jpg" alt="Q-SUCCEED Program Activity 3" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%230a1152%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%23e36515%22 x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2224%22%3EWorkshop%203%3C/text%3E%3C/svg%3E'">
       </div>
     </div>
   </section>
 
-  <!-- Affiliated Companies Section -->
-  <section class="affiliated">
-    <div class="affiliated-content">
-      <h2>Affiliated Companies and Organizations</h2>
-      <div class="companies-marquee">
-        <div class="companies-list">
-          <div class="company">Micron</div>
-          <div class="company ">City School District</div>
-          <div class="company">Westcott Community Center</div>
-          <div class="company">Jubliee Home</div>
-          <div class="company">Syracuse University</div>
-          <div class="company">Onondaga Community College</div>
-          <!-- Duplicate for seamless loop -->
-          <div class="company">Micron</div>
-          <div class="company">City School District</div>
-          <div class="company">Westcott Community Center</div>
-          <div class="company">Jubliee Home</div>
-          <div class="company">Syracuse University</div>
-          <div class="company">Onondaga Community College</div>
+  <!-- Team Section -->
+  <div class="team-section" id="team">
+    <h2 class="team-section-title">Project Team</h2>
+    
+    <div class="team-grid">
+      <div class="team-member-card">
+        <div class="team-orange-bar"></div>
+        <div class="team-member-content">
+          <h3>Dr. Moamer Hasanovic</h3>
+          <p class="team-role">Principal Investigator</p>
+          <p class="team-description">Leading the Q-SUCCEED-CNY initiative with expertise in quantum computing and semiconductor education, driving workforce development strategies.</p>
         </div>
+      </div>
+
+      <div class="team-member-card">
+        <div class="team-orange-bar"></div>
+        <div class="team-member-content">
+          <h3>Dr. Prasanta K. Ghosh</h3>
+          <p class="team-role">Co-Principal Investigator</p>
+          <p class="team-description">Bringing extensive experience in photonics and optics research, supporting program development and industry partnerships.</p>
+        </div>
+      </div>
+
+      <div class="team-member-card">
+        <div class="team-orange-bar"></div>
+        <div class="team-member-content">
+          <h3>Anusha Ghimire</h3>
+          <p class="team-role">Project Coordinator</p>
+          <p class="team-description">Managing program operations, participant engagement, and coordination with community organizations and educational partners.</p>
+        </div>
+      </div>
+    </div>
+    
+    <a href="about.html" class="learn-more-btn">
+      <span>Learn More About Q-SUCCEED</span>
+    </a>
+  </div>
+
+  <!-- Affiliated Companies -->
+  <section class="affiliated">
+    <h2>Affiliated Companies and Organizations</h2>
+    <div class="companies-marquee">
+      <div class="companies-list">
+        <div class="company">Micron</div>
+        <div class="company">City School District</div>
+        <div class="company">Westcott Community Center</div>
+        <div class="company">Jubilee Home</div>
+        <div class="company">Syracuse University</div>
+        <div class="company">Onondaga Community College</div>
+        <!-- Duplicate for seamless loop -->
+        <div class="company">Micron</div>
+        <div class="company">City School District</div>
+        <div class="company">Westcott Community Center</div>
+        <div class="company">Jubilee Home</div>
+        <div class="company">Syracuse University</div>
+        <div class="company">Onondaga Community College</div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="footer" id="contact">
     <div class="footer-content">
-      <div class="footer-left">
-        <img src="https://ext.same-assets.com/3633044319/4209634519.png" alt="Syracuse University iSchool Logo">
-        
+      <div class="footer-section">
+        <img src="https://ext.same-assets.com/3633044319/4209634519.png" alt="Syracuse University iSchool" class="footer-logo" onerror="this.style.display='none'">
+        <p><strong>Q-SUCCEED-CNY</strong></p>
+        <p>Quantum and Semi-Conductor<br>Upskilling for Career Change</p>
+        <div class="social-icons">
+          <a href="#" class="social-icon" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <a href="#about">About Program</a>
+        <a href="#team">Our Team</a>
+        <a href="about.html">Learn More</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="#">Apply Now</a>
+      </div>
+
+      <div class="footer-section">
+        <h3>Contact Information</h3>
+        <p><strong>Syracuse University</strong></p>
+        <p>Syracuse, NY 13244</p>
+        <p>Email: mhasanov@syr.edu</p>
+        <p>Phone: (315) 664-1863</p>
+      </div>
+    </div>
+
     <div class="footer-bottom">
-      Copyright © 2025 Q-SUCCEED 
+      Copyright © 2025 Q-SUCCEED-CNY | Syracuse University | All Rights Reserved
     </div>
   </footer>
 
-  <script crossorigin="anonymous" src="//unpkg.com/same-runtime/dist/index.global.js"></script>
   <script src="main.js"></script>
 </body>
-
 </html>
