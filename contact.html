@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact</title>
+  <title>Contact | Q-SUCCEED-CNY</title>
 
   <style>
+    *{ box-sizing: border-box; }
+
     body{
       margin:0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -14,7 +16,7 @@
       overflow-x:hidden;
     }
 
-    /* NAV */
+    /* NAV*/
     .navbar{
       position: sticky;
       top: 0;
@@ -41,15 +43,19 @@
     }
     .navbar nav a:hover{ color:#ffffff; }
 
-    /* BACKGROUND */
+    /* BACKGROUND*/
     .bg{
       position:relative;
+      min-height: calc(100vh - 76px);
       padding: 4.5rem 1rem 6rem;
       background:
         radial-gradient(900px 500px at 15% 20%, rgba(79,70,229,0.35), transparent 60%),
         radial-gradient(900px 500px at 85% 35%, rgba(99,102,241,0.28), transparent 60%),
         radial-gradient(700px 450px at 45% 95%, rgba(199,210,254,0.22), transparent 60%),
         linear-gradient(180deg, #0b1220 0%, #0b1220 60%, #0a0f1c 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
     .bg::before{
       content:"";
@@ -64,62 +70,227 @@
       opacity:0.35;
     }
 
-    .container{
+    .wrap{
       position:relative;
       z-index:1;
+      width:100%;
       max-width: 980px;
       margin: 0 auto;
       padding: 0 1rem;
+      display:flex;
+      justify-content:center;
+    }
+    .panel{
+      width:100%;
+      max-width: 760px;
+      text-align:center;
+      padding: 1.4rem 1rem 0;
     }
 
-    .header h1{
-      margin:0 0 0.6rem;
-      font-size: clamp(2rem, 3.2vw, 3rem);
-      color:#ffffff;
-      letter-spacing:-0.02em;
+    /* Word cluster */
+    .cluster{
+      position:relative;
+      display:inline-block;
+      margin: 0.2rem 0 1.15rem;
+      padding: 0.4rem 0.2rem;
     }
-    .header p{
-      margin:0 0 1.8rem;
-      max-width: 820px;
+    .cluster .top{
+      font-weight: 900;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      font-size: clamp(2.1rem, 5.8vw, 4rem);
+      color: rgba(255,255,255,0.23);
+      user-select:none;
+    }
+    .cluster .script{
+      position:absolute;
+      left: 0.1rem;
+      bottom: -0.95rem;
+      font-size: clamp(1.75rem, 4.8vw, 3.2rem);
+      font-weight: 650;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: -0.02em;
+      transform: rotate(-2deg);
+      user-select:none;
+    }
+    .cluster .tag{
+      position:absolute;
+      right: -1.3rem;
+      bottom: -0.45rem;
+      padding: 0.55rem 0.95rem;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+      color:#ffffff;
+      transform: rotate(3deg);
+      user-select:none;
+    }
+
+    .sub{
+      margin: 1.25rem auto 1.2rem;
+      max-width: 760px;
       color:#cbd5e1;
       line-height:1.7;
       font-size:1.05rem;
     }
 
+    /* CTA button */
+    .ctaRow{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap: 0.8rem;
+      flex-wrap:wrap;
+      margin-bottom: 1.35rem;
+    }
+    .ctaBtn{
+      border:none;
+      cursor:pointer;
+      font-weight:900;
+      color:#0b1220;
+      background: linear-gradient(135deg, #c7d2fe, #a5b4fc);
+      padding: 0.95rem 1.35rem;
+      border-radius: 14px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+      display:inline-flex;
+      align-items:center;
+      gap: 0.6rem;
+    }
+    .ctaBtn:hover{ filter: brightness(1.05); }
+
+    /* Contact */
     .card{
+      max-width: 520px;
+      width:100%;
+      margin: 0 auto;
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.14);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       border-radius: 22px;
-      padding: 2rem;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+      padding: 1.25rem 1.25rem 1.4rem;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.50);
+      text-align:left;
+
+      display:none;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity .18s ease, transform .18s ease;
+      position: relative;
+      overflow: hidden; 
+    }
+    .card.show{
+      display:block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
+    /* Envelope lines */
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background:
+        linear-gradient(135deg,
+          transparent 0 48%,
+          rgba(255,255,255,0.10) 48% 49%,
+          transparent 49% 100%),
+        linear-gradient(225deg,
+          transparent 0 48%,
+          rgba(255,255,255,0.10) 48% 49%,
+          transparent 49% 100%);
+      pointer-events:none;
+      opacity:0.55;
+      transform: rotate(0deg);
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      left: 18px;
+      right: 18px;
+      top: 58px;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+      pointer-events:none;
+    }
+
+    .cardTitle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
       gap: 1rem;
+      margin-bottom: 0.85rem;
+      position:relative;
+      z-index:1;
+    }
+    .cardTitle h2{
+      margin:0;
+      font-size: 1.15rem;
+      color:#ffffff;
+      letter-spacing:-0.01em;
+      display:flex;
+      align-items:center;
+      gap: 0.6rem;
+    }
+    .stamp{
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px dashed rgba(199,210,254,0.55);
+      background: rgba(199,210,254,0.10);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      color: rgba(199,210,254,0.95);
+      font-size: 0.9rem;
+    }
+
+    .closeMini{
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.06);
+      color:#e5e7eb;
+      border-radius: 10px;
+      padding: 0.35rem 0.6rem;
+      cursor:pointer;
+      font-weight: 800;
+      font-size: 0.8rem;
+      position:relative;
+      z-index:1;
+    }
+    .closeMini:hover{ filter: brightness(1.1); }
+
+    .formArea{
+      position:relative;
+      z-index:1;
     }
 
     label{
       display:block;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color:#cbd5e1;
-      margin-bottom: 0.35rem;
-      font-weight: 650;
+      margin: 0.45rem 0 0.25rem;
+      font-weight:600;
     }
-
     input, textarea{
       width:100%;
-      padding: 0.85rem 0.95rem;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.14);
+      max-width:100%;
+      padding: 0.65rem 0.75rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.18);
       background: rgba(255,255,255,0.06);
       color:#ffffff;
-      outline: none;
+      outline:none;
+      font-size:0.9rem;
     }
     textarea{
-      min-height: 140px;
+      min-height: 90px;
       resize: vertical;
     }
     input:focus, textarea:focus{
@@ -127,132 +298,135 @@
       box-shadow: 0 0 0 4px rgba(99,102,241,0.18);
     }
 
-    .hint{
-      margin-top: 0.6rem;
-      font-size: 0.95rem;
-      color:#e5e7eb;
-      line-height:1.6;
-      opacity: 0.95;
-    }
-
-    .actions{
-      margin-top: 1.2rem;
-      display:flex;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-      align-items:center;
-    }
-
-    button{
-      border: none;
-      padding: 0.9rem 1.2rem;
-      border-radius: 14px;
-      font-weight: 800;
-      cursor: pointer;
+    .sendBtn{
+      margin-top: 0.9rem;
+      border:none;
+      width:100%;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      font-weight: 900;
+      cursor:pointer;
       color:#0b1220;
       background: linear-gradient(135deg, #c7d2fe, #a5b4fc);
     }
-    button:hover{ filter: brightness(1.05); }
+    .sendBtn:hover{ filter: brightness(1.05); }
 
-    .note{
+    .status{
+      margin-top: 0.75rem;
+      font-size:0.95rem;
+      min-height:1.2rem;
       color:#cbd5e1;
-      font-size: 0.95rem;
+      position:relative;
+      z-index:1;
     }
+    .status.ok{ color:#a7f3d0; }
+    .status.err{ color:#fecaca; }
 
     @media (max-width: 820px){
-      .grid{ grid-template-columns: 1fr; }
+      .navbar{ padding: 1rem 1.2rem; }
+      .cluster .tag{ right: -0.6rem; }
     }
   </style>
 </head>
 
 <body>
 
-  <header class="navbar">
-    <div class="logo">Q-SUCCEED-CNY</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </header>
+<header class="navbar">
+  <div class="logo">Q-SUCCEED-CNY</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="apply.html">Apply</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
 
-  <main class="bg">
-    <div class="container">
+<main class="bg">
+  <div class="wrap">
+    <section class="panel">
 
-      <section class="header">
-        <h1>Contact</h1>
-        <p>
-          If you are interested, please fill out this form. Your information will be sent to our Google Form
-          for review.
-        </p>
+      <div class="cluster" aria-hidden="true">
+        <div class="top">bonjour</div>
+        <div class="script">hola</div>
+        <div class="tag">hello</div>
+      </div>
+
+      <div class="sub">
+        Got questions? 
+      </div>
+
+      <div class="ctaRow">
+        <button class="ctaBtn" id="toggleCardBtn" type="button">✎ Contact Us</button>
+      </div>
+
+      <section class="card" id="contactCard">
+        <div class="cardTitle">
+          <h2><span class="stamp">✉</span> Send a message</h2>
+          <button class="closeMini" type="button" id="closeCardBtn">Close</button>
+        </div>
+
+        <div class="formArea">
+          <!-- Direct submit to Google Form-->
+          <form
+            id="gform"
+            action="https://docs.google.com/forms/d/e/1FAIpQLScDwhgoYEADDGsf0p-DAQ06-XNWjWpfSTaF_Vju6WtFEnTm6Q/formResponse"
+            method="POST"
+            target="hidden_iframe"
+          >
+            <label for="name">Name</label>
+            <input id="name" name="entry.1838330447" required />
+
+            <label for="email">Email</label>
+            <input id="email" type="email" name="entry.1834008358" required />
+
+            <label for="message">Message</label>
+            <textarea id="message" name="entry.1700302622" required></textarea>
+
+            <button class="sendBtn" type="submit">Send</button>
+            <div class="status" id="statusText"></div>
+          </form>
+
+          <iframe name="hidden_iframe" style="display:none;"></iframe>
+        </div>
       </section>
 
-      <section class="card">
-        <form id="interestForm">
-          <div class="grid">
-            <div>
-              <label for="firstName">First Name</label>
-              <input id="firstName" name="firstName" type="text" required />
-            </div>
+    </section>
+  </div>
+</main>
 
-            <div>
-              <label for="lastName">Last Name</label>
-              <input id="lastName" name="lastName" type="text" required />
-            </div>
-          </div>
+<script>
+  const card = document.getElementById("contactCard");
+  const toggleBtn = document.getElementById("toggleCardBtn");
+  const closeBtn = document.getElementById("closeCardBtn");
 
-          <div class="grid" style="margin-top: 1rem;">
-            <div>
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" required />
-            </div>
+  function openCard(){
+    card.classList.add("show");
+    setTimeout(() => document.getElementById("name").focus(), 0);
+  }
+  function closeCard(){
+    card.classList.remove("show");
+  }
 
-          </div>
+  toggleBtn.addEventListener("click", () => {
+    if (card.classList.contains("show")) closeCard();
+    else openCard();
+  });
 
-          <div style="margin-top: 1rem;">
-            <label for="about">Tell us a bit about yourself</label>
-            <textarea id="about" name="about" required></textarea>
-          </div>
+  closeBtn.addEventListener("click", closeCard);
 
-          <div class="hint">
-            Next step: you’ll be taken to the official Google Form to
-            upload your Resume/CV and submit.
-          </div>
+  // Direct submit feedback
+  const form = document.getElementById("gform");
+  const statusText = document.getElementById("statusText");
 
-          <div class="actions">
-            <button type="submit">Continue to Resume Upload</button>
-          </div>
-        </form>
-      </section>
-
-    </div>
-  </main>
-
-  <script>
-    
-    const GOOGLE_FORM_VIEW_URL = "https://docs.google.com/forms/d/e/1FAIpQLSd02xGSNS8czNeI2ehsXmlcvFtI71OaFSWD9wPbdL9e4Bunog/viewform";
-
-    const ENTRY_FIRST_NAME   = "entry.1638611941";
-    const ENTRY_LAST_NAME    = "entry.1996411012";
-    const ENTRY_EMAIL        = "entry.1004230311";
-    const ENTRY_ABOUT        = "entry.1714567853";
-
-    document.getElementById("interestForm").addEventListener("submit", function(e){
-      e.preventDefault();
-
-      const firstName   = document.getElementById("firstName").value.trim();
-      const lastName    = document.getElementById("lastName").value.trim();
-      const email       = document.getElementById("email").value.trim();
-      const about       = document.getElementById("about").value.trim();
-
-      const params = new URLSearchParams();
-      params.set(ENTRY_FIRST_NAME, firstName);
-      params.set(ENTRY_LAST_NAME, lastName);
-      params.set(ENTRY_EMAIL, email);
-      params.set(ENTRY_ABOUT, about);
-
-      window.location.href = `${GOOGLE_FORM_VIEW_URL}?${params.toString()}`;
-    });
-  </script>
+  form.addEventListener("submit", () => {
+    statusText.textContent = "Sending...";
+    statusText.className = "status";
+    setTimeout(() => {
+      statusText.textContent = "✅ Message sent. Thank you!";
+      statusText.className = "status ok";
+      form.reset();
+    }, 900);
+  });
+</script>
 
 </body>
 </html>

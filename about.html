@@ -6,6 +6,8 @@
   <title>About</title>
 
   <style>
+    *{ box-sizing:border-box; }
+
     body{
       margin:0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -118,13 +120,16 @@
       font-size:0.95rem;
       letter-spacing:0.2px;
     }
-    .poster-iframe{
+
+    /* PDF viewer container */
+    .poster-frame{
       width:100%;
       height: 68vh;
       min-height: 560px;
       border:none;
       display:block;
       background:#ffffff;
+      overflow:hidden; 
     }
 
     /* ABOUT SECTION */
@@ -143,6 +148,8 @@
       padding: 2.8rem;
       box-shadow: 0 30px 80px rgba(0,0,0,0.45);
       color:#f8fafc;
+      position:relative;
+      overflow:hidden;
     }
     .about-card h2{
       margin-top:0;
@@ -156,9 +163,320 @@
       margin-bottom:1.2rem;
     }
 
+    /* Stipend section */
+    .stipend-wrap{
+      margin-top: 1.6rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(255,255,255,0.14);
+      position:relative;
+      display:flex;
+      flex-direction: column;
+      align-items:center;
+      justify-content:center;
+      gap: 2rem;
+    }
+
+    .stipend-text{
+      margin:0;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* Treasure box */
+    .treasure{
+      width: 400px;
+      max-width: 90%;
+      height: 220px;
+      position:relative;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 22px 70px rgba(0,0,0,0.55);
+      overflow:hidden;
+    }
+
+    /* Box body - enhanced gold/wood texture */
+    .chest-body{
+      position:absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 24px;
+      height: 105px;
+      border-radius: 16px;
+      background:
+        linear-gradient(180deg, rgba(184, 134, 11, 0.3), rgba(139, 90, 0, 0.25)),
+        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06));
+      border: 2px solid rgba(218, 165, 32, 0.4);
+      box-shadow: 
+        inset 0 10px 28px rgba(0,0,0,0.25),
+        inset 0 -2px 8px rgba(218, 165, 32, 0.15);
+    }
+
+    /* Gold rim lines on body */
+    .chest-body::before{
+      content:"";
+      position:absolute;
+      left: 12px;
+      right: 12px;
+      top: 14px;
+      height: 2px;
+      background: rgba(255, 215, 0, 0.45);
+      opacity: 0.9;
+      box-shadow: 0 1px 3px rgba(255, 215, 0, 0.3);
+    }
+
+    .chest-body::after{
+      content:"";
+      position:absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 14px;
+      height: 2px;
+      background: rgba(255, 215, 0, 0.45);
+      opacity: 0.9;
+      box-shadow: 0 1px 3px rgba(255, 215, 0, 0.3);
+    }
+
+    /* Lock decoration */
+    .chest-lock{
+      position:absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+      height: 36px;
+      background: 
+        linear-gradient(180deg, rgba(255, 215, 0, 0.5), rgba(184, 134, 11, 0.5));
+      border-radius: 5px;
+      border: 1px solid rgba(255, 215, 0, 0.6);
+      box-shadow: 
+        0 2px 8px rgba(0,0,0,0.4),
+        inset 0 1px 2px rgba(255,255,255,0.3);
+    }
+
+    .chest-lock::before{
+      content:"";
+      position:absolute;
+      left: 50%;
+      top: 10px;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(139, 90, 0, 0.8);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+    }
+
+    /* Lid - enhanced gold */
+    .chest-lid{
+      position:absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 118px;
+      height: 58px;
+      border-radius: 16px;
+      background:
+        linear-gradient(180deg, rgba(184, 134, 11, 0.35), rgba(139, 90, 0, 0.3)),
+        linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+      border: 2px solid rgba(218, 165, 32, 0.45);
+      transform-origin: 18% 100%;
+      transform: rotateX(0deg) translateY(0);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+    }
+
+    /* Lid highlight and bands */
+    .chest-lid::after{
+      content:"";
+      position:absolute;
+      inset: 10px 12px;
+      border-radius: 12px;
+      background: 
+        radial-gradient(120px 60px at 25% 30%, rgba(255,255,255,0.16), transparent 60%),
+        linear-gradient(90deg, 
+          transparent 0%, 
+          transparent 45%, 
+          rgba(255, 215, 0, 0.2) 48%, 
+          rgba(255, 215, 0, 0.2) 52%, 
+          transparent 55%, 
+          transparent 100%);
+      opacity: 0.9;
+      pointer-events:none;
+    }
+
+    /* Glow + light rays behind coins */
+    .rays{
+      position:absolute;
+      left: 50%;
+      bottom: 75px;
+      width: 300px;
+      height: 300px;
+      transform: translateX(-50%);
+      background:
+        conic-gradient(
+          from 0deg,
+          rgba(255,232,163,0.0) 0 12deg,
+          rgba(255,232,163,0.12) 12deg 18deg,
+          rgba(255,232,163,0.0) 18deg 28deg
+        );
+      filter: blur(0.4px);
+      opacity: 0;
+      pointer-events:none;
+      mix-blend-mode: screen;
+    }
+
+    .glow{
+      position:absolute;
+      left: 50%;
+      bottom: 105px;
+      width: 280px;
+      height: 180px;
+      transform: translateX(-50%);
+      background: radial-gradient(circle at 50% 70%, rgba(255,232,163,0.35), transparent 65%);
+      opacity: 0;
+      pointer-events:none;
+      filter: blur(2px);
+    }
+
+    /* $2400 coin text */
+    .amount{
+      position:absolute;
+      left: 50%;
+      bottom: 100px;
+      transform: translateX(-50%) translateY(30px) scale(0.96);
+      font-weight: 950;
+      font-size: 2.8rem;
+      letter-spacing: -0.02em;
+      color: #ffd700;
+      text-shadow:
+        0 0 18px rgba(255, 215, 0, 0.4),
+        0 0 46px rgba(255, 215, 0, 0.25),
+        2px 2px 4px rgba(0,0,0,0.3);
+      opacity: 0;
+      filter: saturate(1);
+      white-space: nowrap;
+    }
+
+    /* Individual coins flying out */
+    .coin{
+      position:absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: 
+        radial-gradient(circle at 35% 35%, rgba(255, 255, 150, 0.95), rgba(255, 215, 0, 0.85) 50%, rgba(184, 134, 11, 0.9));
+      border: 2px solid rgba(255, 215, 0, 0.7);
+      box-shadow: 
+        0 4px 12px rgba(0,0,0,0.4),
+        inset 0 2px 4px rgba(255,255,255,0.4),
+        inset 0 -2px 4px rgba(0,0,0,0.2);
+      opacity:0;
+      transform: translateY(18px) scale(0.8);
+      pointer-events:none;
+    }
+
+    /* Dollar sign on coins */
+    .coin::before{
+      content:"$";
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 22px;
+      font-weight: 900;
+      color: rgba(139, 90, 0, 0.9);
+      text-shadow: 0 1px 1px rgba(255,255,255,0.3);
+    }
+
+    /* Sparkles */
+    .sparkles{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+    }
+    .spark{
+      position:absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 233, 170, 0.95);
+      box-shadow: 0 0 14px rgba(255, 215, 90, 0.35);
+      opacity:0;
+      transform: translateY(18px) scale(0.8);
+    }
+
+    /* Animation trigger - infinite loop */
+    .treasure.active .chest-lid{
+      animation: lidOpen 2s cubic-bezier(.18,.9,.2,1) infinite;
+    }
+    .treasure.active .amount{
+      animation: riseGold 2s cubic-bezier(.2,.9,.2,1) infinite;
+    }
+    .treasure.active .glow{
+      animation: glowUp 2s ease-out infinite;
+    }
+    .treasure.active .rays{
+      animation: raysOn 2s ease-out infinite;
+    }
+    .treasure.active .spark{
+      animation: sparkUp 2s ease-out infinite;
+    }
+    .treasure.active .coin{
+      animation: coinFly 2s ease-out infinite;
+    }
+
+    @keyframes lidOpen{
+      0%   { transform: rotateX(0deg) translateY(0); }
+      25%  { transform: rotateX(62deg) translateY(-2px); }
+      50%  { transform: rotateX(52deg) translateY(-1px); }
+      75%  { transform: rotateX(52deg) translateY(-1px); }
+      100% { transform: rotateX(0deg) translateY(0); }
+    }
+
+    @keyframes riseGold{
+      0%   { opacity:0; transform: translateX(-50%) translateY(26px) scale(0.96); }
+      15%  { opacity:1; }
+      35%  { opacity:1; transform: translateX(-50%) translateY(0px) scale(1); }
+      75%  { opacity:1; transform: translateX(-50%) translateY(0px) scale(1); }
+      100% { opacity:0; transform: translateX(-50%) translateY(-20px) scale(1); }
+    }
+
+    @keyframes glowUp{
+      0%   { opacity:0; transform: translateX(-50%) translateY(8px); }
+      20%  { opacity:0.9; }
+      40%  { opacity:1; transform: translateX(-50%) translateY(0px); }
+      75%  { opacity:1; }
+      100% { opacity:0; }
+    }
+
+    @keyframes raysOn{
+      0%   { opacity:0; transform: translateX(-50%) scale(0.96) rotate(0deg); }
+      25%  { opacity:0.85; }
+      40%  { opacity:0.75; transform: translateX(-50%) scale(1) rotate(45deg); }
+      75%  { opacity:0.75; transform: translateX(-50%) scale(1) rotate(90deg); }
+      100% { opacity:0; transform: translateX(-50%) scale(1) rotate(180deg); }
+    }
+
+    @keyframes sparkUp{
+      0%   { opacity:0; transform: translateY(18px) scale(0.75); }
+      10%  { opacity:1; }
+      40%  { opacity:0; transform: translateY(-46px) scale(1.1); }
+      100% { opacity:0; }
+    }
+
+    @keyframes coinFly{
+      0%   { opacity:0; transform: translateY(0) translateX(0) scale(0.6); }
+      15%  { opacity:1; }
+      35%  { opacity:1; transform: translateY(-60px) scale(1); }
+      50%  { opacity:0.8; }
+      75%  { opacity:0; }
+      100% { opacity:0; }
+    }
+
     @media (max-width: 900px){
-      .poster-iframe{ height: 58vh; min-height: 460px; }
+      .poster-frame{ height: 58vh; min-height: 460px; }
       .about-card{ padding: 2rem; }
+      .treasure{ width: 90%; height: 200px; }
     }
   </style>
 </head>
@@ -170,6 +488,7 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="contact.html">Contact</a>
+      <a href="apply.html">Apply</a>
     </nav>
   </header>
 
@@ -191,11 +510,12 @@
           <span class="poster-label">Program Poster</span>
         </div>
 
-        <iframe
-          class="poster-iframe"
-          src="images/poster.pdf#view=FitH&toolbar=0&navpanes=0"
-          title="Project Poster PDF">
-        </iframe>
+        <!-- Non-scroll: embed one-page view -->
+        <embed
+          class="poster-frame"
+          src="images/poster.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"
+          type="application/pdf"
+        />
       </div>
     </section>
 
@@ -215,10 +535,75 @@
           anticipated regional impact.
         </p>
 
+        <!-- Stipend -->
+        <div class="stipend-wrap">
+          <p class="stipend-text">
+            Upon completion of the program, participants receive a stipend.
+          </p>
+
+          <!-- Treasure animation box with coins -->
+          <div class="treasure" id="treasureBox" aria-label="Stipend animation">
+            <div class="rays" aria-hidden="true"></div>
+            <div class="glow" aria-hidden="true"></div>
+
+            <div class="sparkles" aria-hidden="true">
+              <span class="spark" style="left:18%; top:78%; animation-delay:0ms;"></span>
+              <span class="spark" style="left:35%; top:82%; animation-delay:90ms;"></span>
+              <span class="spark" style="left:52%; top:76%; animation-delay:160ms;"></span>
+              <span class="spark" style="left:70%; top:84%; animation-delay:230ms;"></span>
+              <span class="spark" style="left:86%; top:78%; animation-delay:310ms;"></span>
+            </div>
+
+            <!-- Coins flying out -->
+            <div class="coin" style="left:30%; bottom:95px; animation-delay:200ms; transform: translateX(-20px);"></div>
+            <div class="coin" style="left:45%; bottom:95px; animation-delay:300ms; transform: translateX(0);"></div>
+            <div class="coin" style="left:60%; bottom:95px; animation-delay:400ms; transform: translateX(20px);"></div>
+            <div class="coin" style="left:38%; bottom:95px; animation-delay:500ms; transform: translateX(-10px);"></div>
+            <div class="coin" style="left:52%; bottom:95px; animation-delay:600ms; transform: translateX(10px);"></div>
+
+            <div class="amount" aria-hidden="true">$2400</div>
+
+            <div class="chest-lid" aria-hidden="true"></div>
+            <div class="chest-body" aria-hidden="true">
+              <div class="chest-lock"></div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
   </main>
+
+  <script>
+    const treasure = document.getElementById("treasureBox");
+
+    // animation when visible
+    const obs = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          treasure.classList.add("active");
+          obs.disconnect();
+        }
+      }
+    }, { threshold: 0.35 });
+
+    obs.observe(treasure);
+
+    // Replay on hover (desktop)
+    treasure.addEventListener("mouseenter", () => {
+      treasure.classList.remove("active");
+      void treasure.offsetWidth;
+      treasure.classList.add("active");
+    });
+
+    // Replay on click (mobile)
+    treasure.addEventListener("click", () => {
+      treasure.classList.remove("active");
+      void treasure.offsetWidth;
+      treasure.classList.add("active");
+    });
+  </script>
 
 </body>
 </html>
