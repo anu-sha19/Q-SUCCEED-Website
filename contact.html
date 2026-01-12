@@ -70,6 +70,50 @@
       opacity:0.35;
     }
 
+    /* Math grid overlay */
+    .bg::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:
+        /* Horizontal lines */
+        repeating-linear-gradient(
+          0deg,
+          transparent 0,
+          transparent 39px,
+          rgba(139, 92, 246, 0.15) 39px,
+          rgba(139, 92, 246, 0.15) 40px
+        ),
+        /* Vertical lines */
+        repeating-linear-gradient(
+          90deg,
+          transparent 0,
+          transparent 39px,
+          rgba(139, 92, 246, 0.15) 39px,
+          rgba(139, 92, 246, 0.15) 40px
+        ),
+        /* Axis lines (thicker) */
+        linear-gradient(
+          0deg,
+          transparent 0,
+          transparent calc(50% - 1px),
+          rgba(167, 139, 250, 0.25) calc(50% - 1px),
+          rgba(167, 139, 250, 0.25) calc(50% + 1px),
+          transparent calc(50% + 1px)
+        ),
+        linear-gradient(
+          90deg,
+          transparent 0,
+          transparent calc(50% - 1px),
+          rgba(167, 139, 250, 0.25) calc(50% - 1px),
+          rgba(167, 139, 250, 0.25) calc(50% + 1px),
+          transparent calc(50% + 1px)
+        );
+      opacity: 0.4;
+      pointer-events:none;
+      mask-image: radial-gradient(circle at 50% 40%, rgba(0,0,0,0.8), transparent 75%);
+    }
+
     .wrap{
       position:relative;
       z-index:1;
