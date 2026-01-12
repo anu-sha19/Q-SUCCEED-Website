@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact</title>
+  <title>Apply | Q-SUCCEED-CNY</title>
 
   <style>
+    *{ box-sizing: border-box; }
+
     body{
       margin:0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -44,6 +46,7 @@
     /* BACKGROUND */
     .bg{
       position:relative;
+      min-height: 100vh;
       padding: 4.5rem 1rem 6rem;
       background:
         radial-gradient(900px 500px at 15% 20%, rgba(79,70,229,0.35), transparent 60%),
@@ -51,6 +54,8 @@
         radial-gradient(700px 450px at 45% 95%, rgba(199,210,254,0.22), transparent 60%),
         linear-gradient(180deg, #0b1220 0%, #0b1220 60%, #0a0f1c 100%);
     }
+    
+    /* Subtle grid pattern */
     .bg::before{
       content:"";
       position:absolute;
@@ -64,22 +69,67 @@
       opacity:0.35;
     }
 
+    /* Math grid overlay */
+    .bg::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:
+        /* Horizontal lines */
+        repeating-linear-gradient(
+          0deg,
+          transparent 0,
+          transparent 49px,
+          rgba(139, 92, 246, 0.12) 49px,
+          rgba(139, 92, 246, 0.12) 50px
+        ),
+        /* Vertical lines */
+        repeating-linear-gradient(
+          90deg,
+          transparent 0,
+          transparent 49px,
+          rgba(139, 92, 246, 0.12) 49px,
+          rgba(139, 92, 246, 0.12) 50px
+        );
+      opacity: 0.35;
+      pointer-events:none;
+      mask-image: radial-gradient(ellipse at 50% 35%, rgba(0,0,0,0.75), transparent 72%);
+    }
+
     .container{
       position:relative;
-      z-index:1;
+      z-index:2;
       max-width: 980px;
       margin: 0 auto;
       padding: 0 1rem;
     }
 
+    .header{
+      margin-bottom: 2.2rem;
+    }
     .header h1{
       margin:0 0 0.6rem;
       font-size: clamp(2rem, 3.2vw, 3rem);
       color:#ffffff;
       letter-spacing:-0.02em;
+      position:relative;
+      display:inline-block;
     }
+    
+    /* Accent underline */
+    .header h1::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-8px;
+      width:100%;
+      height:3px;
+      background: linear-gradient(90deg, rgba(167, 139, 250, 0.8), transparent);
+      border-radius:2px;
+    }
+    
     .header p{
-      margin:0 0 1.8rem;
+      margin:1.2rem 0 0;
       max-width: 820px;
       color:#cbd5e1;
       line-height:1.7;
@@ -89,23 +139,38 @@
     .card{
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.14);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       border-radius: 22px;
-      padding: 2rem;
+      padding: 2.4rem;
       box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* Decorative corner accent */
+    .card::before{
+      content:"";
+      position:absolute;
+      top:0;
+      right:0;
+      width:200px;
+      height:200px;
+      background: radial-gradient(circle at top right, rgba(167, 139, 250, 0.15), transparent 60%);
+      pointer-events:none;
     }
 
     .grid{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      gap: 1.2rem;
+      position:relative;
     }
 
     label{
       display:block;
       font-size: 0.9rem;
       color:#cbd5e1;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.45rem;
       font-weight: 650;
     }
 
@@ -117,26 +182,36 @@
       background: rgba(255,255,255,0.06);
       color:#ffffff;
       outline: none;
+      font-size:0.95rem;
+      transition: all 0.2s ease;
     }
+    
     textarea{
       min-height: 140px;
       resize: vertical;
+      font-family: inherit;
     }
+    
     input:focus, textarea:focus{
       border-color: rgba(199,210,254,0.65);
       box-shadow: 0 0 0 4px rgba(99,102,241,0.18);
+      background: rgba(255,255,255,0.09);
     }
 
     .hint{
-      margin-top: 0.6rem;
+      margin-top: 1.2rem;
+      padding: 1rem 1.2rem;
       font-size: 0.95rem;
       color:#e5e7eb;
       line-height:1.6;
-      opacity: 0.95;
+      background: rgba(167, 139, 250, 0.12);
+      border: 1px solid rgba(167, 139, 250, 0.25);
+      border-radius: 14px;
+      position:relative;
     }
 
     .actions{
-      margin-top: 1.2rem;
+      margin-top: 1.5rem;
       display:flex;
       gap: 0.8rem;
       flex-wrap: wrap;
@@ -145,28 +220,128 @@
 
     button{
       border: none;
-      padding: 0.9rem 1.2rem;
+      padding: 1rem 1.5rem;
       border-radius: 14px;
       font-weight: 800;
+      font-size: 1rem;
       cursor: pointer;
       color:#0b1220;
       background: linear-gradient(135deg, #c7d2fe, #a5b4fc);
+      box-shadow: 0 8px 24px rgba(167, 139, 250, 0.3);
+      transition: all 0.2s ease;
+      position:relative;
+      overflow:hidden;
     }
-    button:hover{ filter: brightness(1.05); }
+    
+    button::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+      opacity:0;
+      transition: opacity 0.2s ease;
+    }
+    
+    button:hover{
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 32px rgba(167, 139, 250, 0.4);
+    }
+    
+    button:hover::before{
+      opacity:1;
+    }
+    
+    button:active{
+      transform: translateY(0);
+    }
+
+    /* Animated particles */
+    .particles{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:1;
+      overflow:hidden;
+    }
+
+    .particle{
+      position:absolute;
+      background: radial-gradient(circle, rgba(199, 210, 254, 0.9), rgba(167, 139, 250, 0.6) 40%, transparent 70%);
+      border-radius:50%;
+      pointer-events:none;
+      animation: float linear infinite;
+      box-shadow: 0 0 10px rgba(167, 139, 250, 0.6);
+    }
+
+    @keyframes float{
+      0%{
+        transform: translateY(110vh) translateX(0) scale(0.3);
+        opacity:0;
+      }
+      5%{
+        opacity:0.8;
+      }
+      95%{
+        opacity:0.8;
+      }
+      100%{
+        transform: translateY(-10vh) translateX(var(--drift)) scale(1);
+        opacity:0;
+      }
+    }
+
+    /* Shooting stars */
+    .shooting-star{
+      position:absolute;
+      width:3px;
+      height:3px;
+      background:#ffffff;
+      border-radius:50%;
+      box-shadow: 0 0 8px 4px rgba(199, 210, 254, 0.9), 0 0 4px 2px rgba(255, 255, 255, 0.8);
+      animation: shoot linear forwards;
+    }
+
+    .shooting-star::after{
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      width:60px;
+      height:2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+      transform: translateX(-60px) translateY(1px);
+    }
+
+    @keyframes shoot{
+      0%{
+        transform: translate(0, 0);
+        opacity:1;
+      }
+      100%{
+        transform: translate(-300px, 300px);
+        opacity:0;
+      }
+    }
 
     @media (max-width: 820px){
       .grid{ grid-template-columns: 1fr; }
+      .card{ padding: 1.8rem; }
+      .navbar{ padding: 1rem 1.2rem; }
     }
   </style>
 </head>
 
 <body>
 
+<div class="particles" id="particlesContainer"></div>
+
 <header class="navbar">
   <div class="logo">Q-SUCCEED-CNY</div>
   <nav>
     <a href="index.html">Home</a>
     <a href="contact.html">Contact</a>
+    <a href="about.html">About</a>
   </nav>
 </header>
 
@@ -174,7 +349,7 @@
   <div class="container">
 
     <section class="header">
-      <h1>Apply Now </h1>
+      <h1>Apply Now</h1>
       <p>
         If you are interested, please fill out this form. Your information will be sent
         to our official Google Form for final submission.
@@ -196,7 +371,7 @@
           </div>
         </div>
 
-        <div class="grid" style="margin-top:1rem;">
+        <div class="grid" style="margin-top:1.2rem;">
           <div>
             <label for="email">Email</label>
             <input id="email" type="email" required />
@@ -208,24 +383,24 @@
           </div>
         </div>
 
-        <div class="grid" style="margin-top:1rem;">
+        <div class="grid" style="margin-top:1.2rem;">
           <div>
             <label for="education">Education Level</label>
             <input id="education" type="text" required />
           </div>
         </div>
 
-        <div style="margin-top:1rem;">
+        <div style="margin-top:1.2rem;">
           <label for="about">Tell us a bit about yourself</label>
           <textarea id="about" required></textarea>
         </div>
 
         <div class="hint">
-          Next step: you’ll be taken to the official Google Form to upload your Resume/CV.
+          Next step: you'll be taken to the official Google Form to upload your Resume/CV.
         </div>
 
         <div class="actions">
-          <button type="submit">Continue to Resume Upload</button>
+          <button type="submit">Continue to Resume Upload →</button>
         </div>
 
       </form>
@@ -259,6 +434,60 @@
     window.location.href =
       `${GOOGLE_FORM_VIEW_URL}?${params.toString()}`;
   });
+
+  // animated particles
+  const particlesContainer = document.getElementById('particlesContainer');
+  
+  // floating particles
+  function createParticle() {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    const size = Math.random() * 6 + 3;
+    const startX = Math.random() * 100;
+    const drift = (Math.random() - 0.5) * 300;
+    const duration = Math.random() * 20 + 15;
+    const delay = Math.random() * 8;
+    
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.left = `${startX}%`;
+    particle.style.setProperty('--drift', `${drift}px`);
+    particle.style.animationDuration = `${duration}s`;
+    particle.style.animationDelay = `${delay}s`;
+    
+    particlesContainer.appendChild(particle);
+  }
+  
+  // shooting stars
+  function createShootingStar() {
+    const star = document.createElement('div');
+    star.className = 'shooting-star';
+    
+    const startX = Math.random() * 80 + 20;
+    const startY = Math.random() * 40;
+    const duration = Math.random() * 1 + 0.8;
+    
+    star.style.left = `${startX}%`;
+    star.style.top = `${startY}%`;
+    star.style.animationDuration = `${duration}s`;
+    
+    particlesContainer.appendChild(star);
+    
+    setTimeout(() => star.remove(), duration * 1000);
+  }
+  
+  
+  for (let i = 0; i < 60; i++) {
+    createParticle();
+  }
+  
+  // shooting stars periodically
+  setInterval(() => {
+    if (Math.random() > 0.6) {
+      createShootingStar();
+    }
+  }, 3000);
 </script>
 
 </body>
