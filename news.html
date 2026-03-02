@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News | Q-SUCCEED-CNY</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0e27; color: #e5e7eb; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 18px 32px; background: rgba(10,14,39,0.95); border-bottom: 1px solid rgba(255,255,255,0.08); position: sticky; top: 0; z-index: 100; }
+    .logo h1 { font-size: 1 rem; font-weight: 800; color: #a5b4fc; letter-spacing: 0.05em; }
+    .desktop-nav { display: flex; gap: 24px; }
+    .desktop-nav a { color: #cbd5e1; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .desktop-nav a:hover { color: #a5b4fc; }
+    .news-hero { position: relative; padding: 120px 24px 80px; text-align: center; overflow: hidden; background: url('images/Lec1/20260128_144823.jpg') center/cover no-repeat; }
+    .news-hero::after { content: ""; position: absolute; inset: 0; background: rgba(10,14,39,0.75); pointer-events: none; }
+    .news-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(900px 500px at 15% 20%, rgba(79,70,229,0.35), transparent 60%),
+                  radial-gradient(900px 500px at 85% 35%, rgba(99,102,241,0.28), transparent 60%),
+                  radial-gradient(700px 450px at 45% 95%, rgba(199,210,254,0.18), transparent 60%); }
+    .news-hero::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 54px 54px; opacity: 0.25; }
+    .chip-row { position: relative; z-index: 1; display: inline-flex; gap: 10px; align-items: center; padding: 10px 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; backdrop-filter: blur(10px); color: #fff; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; }
+    .news-hero h1 { position: relative; z-index: 1; font-size: clamp(2.4rem, 5vw, 3.6rem); color: #fff; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .news-hero p { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; color: #cbd5e1; line-height: 1.7; font-size: 1.05rem; }
+    .program-sections { max-width: 1200px; margin: 0 auto; padding: 60px 24px 100px; }
+    .section-block { margin-bottom: 70px; }
+    .section-header { margin-bottom: 32px; }
+    .section-chip { display: inline-block; padding: 6px 14px; border-radius: 999px; background: rgba(165,180,252,0.12); border: 1px solid rgba(165,180,252,0.3); color: #a5b4fc; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+    .section-title { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .section-desc { color: #94a3b8; line-height: 1.7; max-width: 700px; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .program-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 18px; overflow: hidden; cursor: pointer; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; }
+    .program-card:hover { transform: translateY(-4px); border-color: rgba(227,101,21,0.4); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+    .card-media { position: relative; height: 180px; overflow: hidden; }
+    .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .program-card:hover .card-media img { transform: scale(1.04); }
+    .card-pill { position: absolute; top: 12px; left: 12px; padding: 5px 10px; border-radius: 999px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 0.75rem; font-weight: 700; backdrop-filter: blur(6px); }
+    .card-meta { padding: 16px; }
+    .card-meta h3 { color: #fff; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .meta-line { color: #94a3b8; font-size: 0.85rem; margin-bottom: 4px; }
+    .card-kicker { color: #a5b4fc; font-size: 0.8rem; font-weight: 600; }
+    .lecture-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 18px; overflow: hidden; cursor: pointer; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; }
+    .lecture-card:hover { transform: translateY(-4px); border-color: rgba(165,180,252,0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+    .lecture-card:hover .card-media img { transform: scale(1.04); }
+    .detail-modal { display: none; position: fixed; inset: 0; z-index: 300; align-items: center; justify-content: center; padding: 20px; }
+    .detail-modal.open { display: flex; }
+    .detail-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
+    .detail-card { position: relative; background: #111827; border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; max-width: 680px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 32px; z-index: 1; }
+    .detail-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: #64748b; font-size: 1.5rem; cursor: pointer; }
+    .detail-close:hover { color: #fff; }
+    .detail-chip { display: inline-block; padding: 5px 12px; border-radius: 999px; background: rgba(227,101,21,0.15); border: 1px solid rgba(227,101,21,0.35); color: #ffd9c2; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
+    .detail-head h3 { color: #fff; font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
+    .detail-meta { color: #64748b; font-size: 0.9rem; margin-bottom: 16px; }
+    .detail-desc { color: #94a3b8; line-height: 1.7; margin-bottom: 16px; }
+    .detail-points { list-style: none; margin-bottom: 20px; }
+    .detail-points li { color: #cbd5e1; font-size: 0.9rem; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; gap: 8px; }
+    .detail-points li::before { content: "▸"; color: #f59e0b; }
+    .detail-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
+    .detail-photos img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo"><h1>Q-SUCCEED-CNY</h1></div>
+  <nav class="desktop-nav">
+    <a href="index.html">Home</a>
+    <a href="news.html">News</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="apply.html">Apply</a>
+  </nav>
+</header>
+
+<section class="news-hero">
+  <div class="chip-row">News Channel • Q-SUCCEED-CNY</div>
+  <h1>Inside the Classroom & Lab</h1>
+  <p>Highlights from Q-SUCCEED lectures, workshops, and field trips.</p>
+</section>
+
+<section class="program-sections" id="programs">
+
+  <!-- BI-WEEKLY -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-chip">Bi-Weekly Bootcamp</span>
+      <h2 class="section-title">8 Lecture Series</h2>
+      <p class="section-desc">The Bi-Weekly Lecture series introduce participants to semiconductor and quantum technologies through a semester-long series of sessions, where every lecture is followed by hands-on activities to reinforce learning. Starting with an orientation, participants progressively explore vacuum processes, plasma processing, photolithography, and gold plating on the semiconductor side, then transition into laser-based measurements, quantum optics, the double-slit experiment, and quantum cryptography.</p>
+    </div>
+    <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
+
+      <!-- Lecture 1 -->
+      <article class="lecture-card" onclick="openLecture(event)"
+        data-num="1" data-date="January 28, 2026"
+        data-desc="In the first session, participants were introduced to the fundamentals of semiconductors. Following the lecture, participants took part in a hands-on lab activity to reinforce the concepts covered in class."
+        data-photo="images/Lec1/20260128_135658.jpg"
+        data-photos="images/Lec1/20260128_135658.jpg, images/Lec1/20260128_145224.jpg,images/Lec1/20260128_145135.jpg,images/Lec1/20260128_144852.jpg,,images/Lec1/20260128_144943.jpg,images/Lec1/20260128_144953.jpg">
+        <div class="card-media">
+          <span class="card-pill">Lecture 1</span>
+          <img src="images/Lec1/20260128_135658.jpg" alt="Lecture 1">
+        </div>
+        <div class="card-meta"><h3>Lecture 1</h3><p class="meta-line">January 28, 2026</p></div>
+      </article>
+      <!-- Lecture 2-->
+      <article class="lecture-card" onclick="openLecture(event)"
+        data-num="2" data-date="February 11, 2026"
+        data-desc="In this session, participants were introduced to emerging technologies shaping today's world — from semiconductors powering modern electronics to quantum systems redefining computing and communication. The lecture explored why understanding these fields is essential in today's rapidly evolving job market. Following the lecture, participants engaged in a hands-on lab activity working with electronic components and light-based sensors, getting their first direct experience with the kind of tools" 
+        data-photo="images/Lec2/20260211_144745.jpg"
+        data-photos="images/Lec2/20260211_144210.jpg,images/Lec2/20260211_144035(1).jpg,images/Lec2/20260211_143747(1).jpg,images/Lec2/20260211_143853.jpg,images/Lec2/20260211_144011.jpg,images/Lec2/20260211_144632.jpg,images/Lec2/20260211_144310.jpg,images/Lec2/20260211_144414.jpg,images/Lec2/20260211_144614.jpg,images/Lec2/20260211_144647.jpg,images/Lec2/20260211_144747.jpg,images/Lec2/20260211_143747.jpg">
+        <div class="card-media">
+          <span class="card-pill">Lecture 2</span>
+          <img src="images/Lec2/20260211_143853.jpg" alt="Lecture 2">
+        </div>
+        <div class="card-meta"><h3>Lecture 2</h3><p class="meta-line">February 11, 2026</p></div>
+      </article>
+
+      
+<!-- Lecture 3 — replace the existing article with this -->
+<article class="lecture-card" onclick="openLecture(event)"
+  data-num="3" data-date="February 25, 2026"
+  data-desc="In this session, participants explored Vacuum and Plasma in Semiconductor Manufacturing, learning how vacuum systems and plasma processes are used in semiconductor fabrication environments. Following the lecture, participants engaged in a hands-on lab activity working directly with vacuum equipment."
+  data-photo="images/Lec3/20260225_124120.jpg"
+  data-photos="images/Lec3/20260225_124120.jpg,images/Lec3/20260225_124149.jpg,images/Lec3/20260225_132329.jpg,images/Lec3/20260225_132333.jpg,images/Lec3/20260225_133952.jpg,images/Lec3/20260225_134326.jpg,images/Lec3/20260225_134358.jpg,images/Lec3/20260225_134701.jpg,images/Lec3/20260225_134739.jpg,images/Lec3/20260225_143020.jpg">
+  <div class="card-media">
+    <span class="card-pill">Lecture 3</span>
+    <img src="images/Lec3/20260225_124120.jpg" alt="Lecture 3">
+  </div>
+  <div class="card-meta"><h3>Lecture 3</h3><p class="meta-line">February 25, 2026</p></div>
+</article>
+
+      <!-- Lecture 4 -->
+      <article class="lecture-card" onclick="openLecture(this)"
+        data-num="4" data-date="March 4, 2026"
+        data-photo="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=900&q=80">
+        <div class="card-media">
+          <span class="card-pill">Lecture 4</span>
+          <img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=900&q=80" alt="Lecture 4">
+        </div>
+        <div class="card-meta"><h3>Lecture 4</h3><p class="meta-line">March 4, 2026</p></div>
+      </article>
+
+      <!-- Lecture 5 -->
+      <article class="lecture-card" onclick="openLecture(this)"
+        data-num="5" data-date="March 18, 2026"
+        data-photo="https://images.unsplash.com/photo-1517971129774-8a2b38fa128e?auto=format&fit=crop&w=900&q=80">
+        <div class="card-media">
+          <span class="card-pill">Lecture 5</span>
+          <img src="https://images.unsplash.com/photo-1517971129774-8a2b38fa128e?auto=format&fit=crop&w=900&q=80" alt="Lecture 5">
+        </div>
+        <div class="card-meta"><h3>Lecture 5</h3><p class="meta-line">March 18, 2026</p></div>
+      </article>
+
+      <!-- Lecture 6 — filler image added -->
+      <article class="lecture-card" onclick="openLecture(event)" data-num="6" data-date="March 25, 2026" data-photo="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80">
+        <div class="card-media"><span class="card-pill">Lecture 6</span><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="Lecture 6"></div>
+        <div class="card-meta"><h3>Lecture 6</h3><p class="meta-line">March 25, 2026</p></div>
+      </article>
+
+      <!-- Lecture 7 -->
+      <article class="lecture-card" onclick="openLecture(this)"
+        data-num="7" data-date="April 8, 2026"
+        data-photo="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80">
+        <div class="card-media">
+          <span class="card-pill">Lecture 7</span>
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80" alt="Lecture 7">
+        </div>
+        <div class="card-meta"><h3>Lecture 7</h3><p class="meta-line">April 8, 2026</p></div>
+      </article>
+
+      <!-- Lecture 8 — filler image added -->
+      <article class="lecture-card" onclick="openLecture(event)" data-num="8" data-date="April 15, 2026" data-photo="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=900&q=80">
+        <div class="card-media"><span class="card-pill">Lecture 8</span><img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=900&q=80" alt="Lecture 8"></div>
+        <div class="card-meta"><h3>Lecture 8</h3><p class="meta-line">April 15, 2026</p></div>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- LECTURE MODAL -->
+  <div class="detail-modal" id="lectureModal">
+    <div class="detail-backdrop" onclick="closeLecture()"></div>
+    <div class="detail-card" style="max-width:760px;">
+      <button class="detail-close" onclick="closeLecture()">&times;</button>
+      <div class="detail-head">
+        <span class="detail-chip" id="lec-chip"></span>
+        <h3 id="lec-title"></h3>
+        <p class="detail-meta" id="lec-date"></p>
+      </div>
+      <p style="color:#64748b; font-size:0.85rem; margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Session Description</p>
+      <div id="lec-desc" style="background:#0d1226; border:1px dashed rgba(255,255,255,0.12); border-radius:10px; padding:16px; color:#94a3b8; font-size:0.9rem; line-height:1.7; min-height:80px; margin-bottom:24px;"></div>
+      <p style="color:#64748b; font-size:0.85rem; margin-bottom:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">📷 Session Photos</p>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;" id="lec-photos"></div>
+    </div>
+  </div>
+
+  <!-- FIELD TRIPS -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-chip">Field Trips</span>
+      <h2 class="section-title">Inside the Ecosystem</h2>
+      <p class="section-desc">Factory walk-throughs and lab tours demystify tooling, safety culture, and career ladders across Central New York and beyond.</p>
+    </div>
+    <div class="card-grid">
+      <article class="program-card" data-chip="Field Trip" data-title="Albany NanoTech Complex" data-meta="Process Lines • Metrology" data-desc="See front-end fabs up close: contamination control, lithography windows, and how technicians keep yield high." data-bullets="Glove-up walkthrough|Metrology and cleanroom etiquette|QA/QC huddles with staff" data-photos="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1581090706524-6c67e28e8415?auto=format&fit=crop&w=900&q=80">
+        <div class="card-media"><span class="card-pill">Fab Tour</span><img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&w=1200&q=80" alt="NanoTech tour"></div>
+        <div class="card-meta"><h3>Albany NanoTech Complex</h3><p class="meta-line">Cleanroom culture + process flow</p></div>
+      </article>
+      <article class="program-card" data-chip="Field Trip" data-title="Micron Preview & Supply Chain" data-meta="North Syracuse • Vendor Stops" data-desc="Preview supplier and logistics roles that make advanced packaging possible—perfect for ops-minded career changers." data-bullets="Facilities and EHS deep dive|Supply chain and incoming QA|Talks with shift leads" data-photos="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80">
+        <div class="card-media"><span class="card-pill">Supply Chain</span><img src="https://images.unsplash.com/photo-1517433456452-f9633a875f6f?auto=format&fit=crop&w=1200&q=80" alt="Supply chain tour"></div>
+        <div class="card-meta"><h3>Micron Preview & Supply Chain</h3><p class="meta-line">Packaging, logistics, facilities</p></div>
+      </article>
+      <article class="program-card" data-chip="Field Trip" data-title="Optics & Photonics Labs" data-meta="University + Industry Labs" data-desc="See alignment stations, laser safety, and detector setups; meet researchers who hire technician talent." data-bullets="Laser safety & PPE|Detector alignment live|Hiring Q&A with lab leads" data-photos="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1523966211575-eb4a017f3cc7?auto=format&fit=crop&w=900&q=80">
+        <div class="card-media"><span class="card-pill">Lab Tour</span><img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=80" alt="Optics lab"></div>
+        <div class="card-meta"><h3>Optics & Photonics Labs</h3><p class="meta-line">Alignment, detectors, and safety</p></div>
+      </article>
+    </div>
+  </div>
+
+  <!-- FIVE-DAY BOOTCAMP -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-chip">Five-Day Workshop</span>
+      <h2 class="section-title">Immersive Sprint</h2>
+      <p class="section-desc">One week to build confidence: day-by-day cadence mixing labs, career huddles, and demos for learners entering the talent pipeline.</p>
+    </div>
+    <div class="card-grid">
+      <article class="program-card" data-chip="Bootcamp" data-title="Days 1-2: Foundations" data-meta="Safety • Basics • Tools" data-desc="Ramp quickly on safety, ESD, optics handling, and measurement so learners can contribute by mid-week." data-bullets="ESD, PPE, and lab etiquette|Measurement bootstraps|Concept primers without heavy math" data-photos="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80">
+        <div class="card-media"><span class="card-pill">Day 1-2</span><img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1200&q=80" alt="Foundation days"></div>
+        <div class="card-meta"><h3>Days 1-2: Foundations</h3><p class="meta-line">ESD, PPE, measurement, optical safety</p><p class="card-kicker">Immersive start</p></div>
+      </article>
+      <article class="program-card" data-chip="Bootcamp" data-title="Days 3-4: Build & Test" data-meta="Hands-On • Pair Work" data-desc="Teams assemble and test small rigs—sensor boards, optics alignments, or simple QKD demos—to mirror real technician work." data-bullets="Assembly + alignment challenges|Test plans and data capture|Peer reviews for quality" data-photos="https://images.unsplash.com/photo-1554474059-6c1dc69b6d2b?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=900&q=80">
+        <div class="card-media"><span class="card-pill">Day 3-4</span><img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80" alt="Build and test days"></div>
+        <div class="card-meta"><h3>Days 3-4: Build & Test</h3><p class="meta-line">Mini-rigs, testing, data</p><p class="card-kicker">Peer builds</p></div>
+      </article>
+      <article class="program-card" data-chip="Bootcamp" data-title="Day 5: Demo Day + Career" data-meta="Showcase • Hiring Pathways" data-desc="Teams present, get feedback from mentors, and connect to hiring partners with clear next steps." data-bullets="Live demos and retros|Feedback from industry mentors|Next-step coaching and job leads" data-photos="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80">
+        <div class="card-media"><span class="card-pill">Day 5</span><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80" alt="Demo day"></div>
+        <div class="card-meta"><h3>Day 5: Demo Day + Career</h3><p class="meta-line">Showcase, feedback, and handoffs</p><p class="card-kicker">Connect to hiring</p></div>
+      </article>
+    </div>
+  </div>
+
+</section>
+
+<!-- PROGRAM MODAL -->
+<div class="detail-modal" id="programModal">
+  <div class="detail-backdrop"></div>
+  <div class="detail-card">
+    <button class="detail-close">&times;</button>
+    <div class="detail-head">
+      <span class="detail-chip" data-modal-chip></span>
+      <h3 data-modal-title></h3>
+      <p class="detail-meta" data-modal-meta></p>
+    </div>
+    <p class="detail-desc" data-modal-desc></p>
+    <ul class="detail-points" data-modal-points></ul>
+    <div class="detail-photos" data-modal-photos></div>
+  </div>
+</div>
+
+<script>
+  // Program modal
+  const modal = document.getElementById('programModal');
+  const chipEl = modal.querySelector('[data-modal-chip]');
+  const titleEl = modal.querySelector('[data-modal-title]');
+  const metaEl = modal.querySelector('[data-modal-meta]');
+  const descEl = modal.querySelector('[data-modal-desc]');
+  const pointsEl = modal.querySelector('[data-modal-points]');
+  const photosEl = modal.querySelector('[data-modal-photos]');
+
+  const close = () => { modal.classList.remove('open'); document.body.style.overflow = ''; };
+  const open = (card) => {
+    chipEl.textContent = card.dataset.chip || '';
+    titleEl.textContent = card.dataset.title || '';
+    metaEl.textContent = card.dataset.meta || '';
+    descEl.textContent = card.dataset.desc || '';
+    pointsEl.innerHTML = (card.dataset.bullets || '').split('|').filter(Boolean).map(b => `<li>${b.trim()}</li>`).join('');
+    photosEl.innerHTML = (card.dataset.photos || '').split(',').filter(Boolean).map((u,i) => `<img src="${u.trim()}" alt="photo ${i+1}">`).join('');
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  // ✅ FIXED: openLecture now reads from data-photos
+  function openLecture(e) {
+    const card = e.currentTarget || e.target.closest('article');
+    const n = card.dataset.num;
+    const date = card.dataset.date;
+    const desc = card.dataset.desc;
+    document.getElementById('lec-chip').textContent = `Lecture ${n}`;
+    document.getElementById('lec-title').textContent = `Lecture ${n}`;
+    document.getElementById('lec-date').textContent = date;
+    document.getElementById('lec-desc').textContent = desc || 'Description will be added after the session.';
+
+    const grid = document.getElementById('lec-photos');
+    const photos = (card.dataset.photos || '').split(',').filter(Boolean);
+
+    if (photos.length > 0) {
+      grid.innerHTML = photos.map((url, i) =>
+        `<img src="${url.trim()}" alt="Session photo ${i+1}" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px;">`
+      ).join('');
+    } else {
+      grid.innerHTML = `<p style="color:#475569; font-size:0.85rem;">No photos available yet.</p>`;
+    }
+
+    document.getElementById('lectureModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLecture() {
+    document.getElementById('lectureModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.program-card').forEach(c => c.addEventListener('click', () => open(c)));
+  modal.querySelector('.detail-close').addEventListener('click', close);
+  modal.querySelector('.detail-backdrop').addEventListener('click', close);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { close(); closeLecture(); } });
+</script>
+</body>
+</html>
