@@ -8,19 +8,18 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #0a0e27; color: #e5e7eb; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
     .header { display: flex; justify-content: space-between; align-items: center; padding: 18px 32px; background: rgba(10,14,39,0.95); border-bottom: 1px solid rgba(255,255,255,0.08); position: sticky; top: 0; z-index: 100; }
-    .logo h1 { font-size: 1 rem; font-weight: 800; color: #a5b4fc; letter-spacing: 0.05em; }
+    .logo h1 { font-size: 1rem; font-weight: 800; color: #a5b4fc; letter-spacing: 0.05em; }
     .desktop-nav { display: flex; gap: 24px; }
     .desktop-nav a { color: #cbd5e1; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
     .desktop-nav a:hover { color: #a5b4fc; }
     .news-hero { position: relative; padding: 120px 24px 80px; text-align: center; overflow: hidden; background: url('images/Lec1/20260128_144823.jpg') center/cover no-repeat; }
-    .news-hero::after { content: ""; position: absolute; inset: 0; background: rgba(10,14,39,0.75); pointer-events: none; }
+    .news-hero::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 54px 54px; opacity: 0.25; }
     .news-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none;
       background: radial-gradient(900px 500px at 15% 20%, rgba(79,70,229,0.35), transparent 60%),
                   radial-gradient(900px 500px at 85% 35%, rgba(99,102,241,0.28), transparent 60%),
                   radial-gradient(700px 450px at 45% 95%, rgba(199,210,254,0.18), transparent 60%); }
-    .news-hero::after { content: ""; position: absolute; inset: 0; pointer-events: none;
-      background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
-      background-size: 54px 54px; opacity: 0.25; }
     .chip-row { position: relative; z-index: 1; display: inline-flex; gap: 10px; align-items: center; padding: 10px 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; backdrop-filter: blur(10px); color: #fff; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; }
     .news-hero h1 { position: relative; z-index: 1; font-size: clamp(2.4rem, 5vw, 3.6rem); color: #fff; letter-spacing: -0.02em; margin-bottom: 14px; }
     .news-hero p { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; color: #cbd5e1; line-height: 1.7; font-size: 1.05rem; }
@@ -31,8 +30,8 @@
     .section-title { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
     .section-desc { color: #94a3b8; line-height: 1.7; max-width: 700px; }
     .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-    .program-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 18px; overflow: hidden; cursor: pointer; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; }
-    .program-card:hover { transform: translateY(-4px); border-color: rgba(227,101,21,0.4); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+    .program-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 18px; overflow: hidden; cursor: default; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; opacity: 0.55; pointer-events: none; position: relative; }
+    .program-card::after { content: "Coming Soon"; position: absolute; top: 12px; right: 12px; padding: 5px 10px; border-radius: 999px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); color: #94a3b8; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; z-index: 2; }
     .card-media { position: relative; height: 180px; overflow: hidden; }
     .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
     .program-card:hover .card-media img { transform: scale(1.04); }
@@ -59,6 +58,47 @@
     .detail-points li::before { content: "▸"; color: #f59e0b; }
     .detail-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
     .detail-photos img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; }
+
+    /* ===== PHOTO LIGHTBOX ===== */
+    .photo-lightbox {
+      display: none; position: fixed; inset: 0; z-index: 500;
+      align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+      padding: 24px; cursor: zoom-out;
+    }
+    .photo-lightbox.open { display: flex; }
+    .photo-lightbox img {
+      max-width: 90vw; max-height: 85vh; width: 680px; height: auto;
+      object-fit: contain; border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      animation: lbFadeIn 0.2s ease;
+    }
+    .photo-lightbox .lb-close {
+      position: absolute; top: 20px; right: 28px;
+      background: none; border: none; color: rgba(255,255,255,0.7);
+      font-size: 2rem; cursor: pointer; z-index: 1;
+      transition: color 0.2s;
+    }
+    .photo-lightbox .lb-close:hover { color: #fff; }
+    .photo-lightbox .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; font-size: 1.6rem; width: 44px; height: 44px;
+      border-radius: 50%; cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .photo-lightbox .lb-nav:hover { background: rgba(255,255,255,0.2); }
+    .photo-lightbox .lb-prev { left: 20px; }
+    .photo-lightbox .lb-next { right: 20px; }
+    .photo-lightbox .lb-counter {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 600;
+    }
+    @keyframes lbFadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+    /* Make gallery thumbnails show a zoom cursor */
+    #lec-photos img, .detail-photos img { cursor: zoom-in; }
   </style>
 </head>
 <body>
@@ -103,10 +143,11 @@
         </div>
         <div class="card-meta"><h3>Lecture 1</h3><p class="meta-line">January 28, 2026</p></div>
       </article>
-      <!-- Lecture 2-->
+
+      <!-- Lecture 2 -->
       <article class="lecture-card" onclick="openLecture(event)"
         data-num="2" data-date="February 11, 2026"
-        data-desc="In this session, participants were introduced to emerging technologies shaping today's world — from semiconductors powering modern electronics to quantum systems redefining computing and communication. The lecture explored why understanding these fields is essential in today's rapidly evolving job market. Following the lecture, participants engaged in a hands-on lab activity working with electronic components and light-based sensors, getting their first direct experience with the kind of tools" 
+        data-desc="In this session, participants were introduced to emerging technologies shaping today's world — from semiconductors powering modern electronics to quantum systems redefining computing and communication. The lecture explored why understanding these fields is essential in today's rapidly evolving job market. Following the lecture, participants engaged in a hands-on lab activity working with electronic components and light-based sensors, getting their first direct experience with the kind of tools"
         data-photo="images/Lec2/20260211_144745.jpg"
         data-photos="images/Lec2/20260211_144210.jpg,images/Lec2/20260211_144035(1).jpg,images/Lec2/20260211_143747(1).jpg,images/Lec2/20260211_143853.jpg,images/Lec2/20260211_144011.jpg,images/Lec2/20260211_144632.jpg,images/Lec2/20260211_144310.jpg,images/Lec2/20260211_144414.jpg,images/Lec2/20260211_144614.jpg,images/Lec2/20260211_144647.jpg,images/Lec2/20260211_144747.jpg,images/Lec2/20260211_143747.jpg">
         <div class="card-media">
@@ -116,26 +157,25 @@
         <div class="card-meta"><h3>Lecture 2</h3><p class="meta-line">February 11, 2026</p></div>
       </article>
 
-      
-<!-- Lecture 3 — replace the existing article with this -->
-<article class="lecture-card" onclick="openLecture(event)"
-  data-num="3" data-date="February 25, 2026"
-  data-desc="In this session, participants explored Vacuum and Plasma in Semiconductor Manufacturing, learning how vacuum systems and plasma processes are used in semiconductor fabrication environments. Following the lecture, participants engaged in a hands-on lab activity working directly with vacuum equipment."
-  data-photo="images/Lec3/20260225_124120.jpg"
-  data-photos="images/Lec3/20260225_124120.jpg,images/Lec3/20260225_124149.jpg,images/Lec3/20260225_132329.jpg,images/Lec3/20260225_132333.jpg,images/Lec3/20260225_133952.jpg,images/Lec3/20260225_134326.jpg,images/Lec3/20260225_134358.jpg,images/Lec3/20260225_134701.jpg,images/Lec3/20260225_134739.jpg,images/Lec3/20260225_143020.jpg">
-  <div class="card-media">
-    <span class="card-pill">Lecture 3</span>
-    <img src="images/Lec3/20260225_124120.jpg" alt="Lecture 3">
-  </div>
-  <div class="card-meta"><h3>Lecture 3</h3><p class="meta-line">February 25, 2026</p></div>
-</article>
+      <!-- Lecture 3 -->
+      <article class="lecture-card" onclick="openLecture(event)"
+        data-num="3" data-date="February 25, 2026"
+        data-desc="In this session, participants explored Vacuum and Plasma in Semiconductor Manufacturing, learning how vacuum systems and plasma processes are used in semiconductor fabrication environments. Following the lecture, participants engaged in a hands-on lab activity working directly with vacuum equipment."
+        data-photo="images/Lec3/20260225_124120.jpg"
+        data-photos="images/Lec3/20260225_124120.jpg,images/Lec3/20260225_124149.jpg,images/Lec3/20260225_132329.jpg,images/Lec3/20260225_132333.jpg,images/Lec3/20260225_133952.jpg,images/Lec3/20260225_134326.jpg,images/Lec3/20260225_134358.jpg,images/Lec3/20260225_134701.jpg,images/Lec3/20260225_134739.jpg,images/Lec3/20260225_143020.jpg">
+        <div class="card-media">
+          <span class="card-pill">Lecture 3</span>
+          <img src="images/Lec3/20260225_124120.jpg" alt="Lecture 3">
+        </div>
+        <div class="card-meta"><h3>Lecture 3</h3><p class="meta-line">February 25, 2026</p></div>
+      </article>
 
       <!-- Lecture 4 -->
       <article class="lecture-card" onclick="openLecture(event)"
-        data-desc = "Participants in the fourth lecture explored the wave properties of light and key concepts in quantum sensing. The session combined classroom instruction with hands-on activities, where learners experimented with lasers, and optical elements to observe light behavior firsthand."
+        data-desc="Participants in the fourth lecture explored the wave properties of light and key concepts in quantum sensing. The session combined classroom instruction with hands-on activities, where learners experimented with lasers, and optical elements to observe light behavior firsthand."
         data-num="4" data-date="March 4, 2026"
         data-photo="images/Lec4/20260304_134421.jpg"
-        data-photos = "images/Lec4/20260304_132129.jpg,images/Lec4/20260304_134421.jpg,images/Lec4/20260304_134547.jpg,images/Lec4/20260304_143723.jpg,images/Lec4/20260304_143731.jpg,images/Lec4/20260304_143735.jpg,images/Lec4/20260304_143802.jpg,images/Lec4/20260304_143815.jpg,images/Lec4/20260304_143828.jpg,images/Lec4/20260304_143904.jpg,images/Lec4/20260304_143914.jpg,images/Lec4/20260304_143932.jpg,images/Lec4/20260304_144102.jpg">
+        data-photos="images/Lec4/20260304_132129.jpg,images/Lec4/20260304_134421.jpg,images/Lec4/20260304_134547.jpg,images/Lec4/20260304_143723.jpg,images/Lec4/20260304_143731.jpg,images/Lec4/20260304_143735.jpg,images/Lec4/20260304_143802.jpg,images/Lec4/20260304_143815.jpg,images/Lec4/20260304_143828.jpg,images/Lec4/20260304_143904.jpg,images/Lec4/20260304_143914.jpg,images/Lec4/20260304_143932.jpg,images/Lec4/20260304_144102.jpg">
         <div class="card-media">
           <span class="card-pill">Lecture 4</span>
           <img src="images/Lec4/20260304_134421.jpg" alt="Lecture 4">
@@ -144,7 +184,7 @@
       </article>
 
       <!-- Lecture 5 -->
-      <article class="lecture-card" onclick="openLecture(this)"
+      <article class="lecture-card" onclick="openLecture(event)"
         data-num="5" data-date="March 18, 2026"
         data-photo="https://images.unsplash.com/photo-1517971129774-8a2b38fa128e?auto=format&fit=crop&w=900&q=80">
         <div class="card-media">
@@ -154,14 +194,14 @@
         <div class="card-meta"><h3>Lecture 5</h3><p class="meta-line">March 18, 2026</p></div>
       </article>
 
-      <!-- Lecture 6 — filler image added -->
+      <!-- Lecture 6 -->
       <article class="lecture-card" onclick="openLecture(event)" data-num="6" data-date="March 25, 2026" data-photo="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80">
         <div class="card-media"><span class="card-pill">Lecture 6</span><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="Lecture 6"></div>
         <div class="card-meta"><h3>Lecture 6</h3><p class="meta-line">March 25, 2026</p></div>
       </article>
 
       <!-- Lecture 7 -->
-      <article class="lecture-card" onclick="openLecture(this)"
+      <article class="lecture-card" onclick="openLecture(event)"
         data-num="7" data-date="April 8, 2026"
         data-photo="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80">
         <div class="card-media">
@@ -171,7 +211,7 @@
         <div class="card-meta"><h3>Lecture 7</h3><p class="meta-line">April 8, 2026</p></div>
       </article>
 
-      <!-- Lecture 8 — filler image added -->
+      <!-- Lecture 8 -->
       <article class="lecture-card" onclick="openLecture(event)" data-num="8" data-date="April 15, 2026" data-photo="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=900&q=80">
         <div class="card-media"><span class="card-pill">Lecture 8</span><img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=900&q=80" alt="Lecture 8"></div>
         <div class="card-meta"><h3>Lecture 8</h3><p class="meta-line">April 15, 2026</p></div>
@@ -206,8 +246,8 @@
     </div>
     <div class="card-grid">
       <article class="program-card" data-chip="Field Trip" data-title="Albany NanoTech Complex" data-meta="Process Lines • Metrology" data-desc="See front-end fabs up close: contamination control, lithography windows, and how technicians keep yield high." data-bullets="Glove-up walkthrough|Metrology and cleanroom etiquette|QA/QC huddles with staff" data-photos="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1581090706524-6c67e28e8415?auto=format&fit=crop&w=900&q=80">
-        <div class="card-media"><span class="card-pill">Fab Tour</span><img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&w=1200&q=80" alt="NanoTech tour"></div>
-        <div class="card-meta"><h3>Albany NanoTech Complex</h3><p class="meta-line">Cleanroom culture + process flow</p></div>
+        <div class="card-media"><span class="card-pill">Tour</span><img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&w=1200&q=80" alt="NanoTech tour"></div>
+        <div class="card-meta"><h3>Cornell Clean Room Tour</h3><p class="meta-line">Cleanroom culture + process flow</p></div>
       </article>
       <article class="program-card" data-chip="Field Trip" data-title="Micron Preview & Supply Chain" data-meta="North Syracuse • Vendor Stops" data-desc="Preview supplier and logistics roles that make advanced packaging possible—perfect for ops-minded career changers." data-bullets="Facilities and EHS deep dive|Supply chain and incoming QA|Talks with shift leads" data-photos="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80">
         <div class="card-media"><span class="card-pill">Supply Chain</span><img src="https://images.unsplash.com/photo-1517433456452-f9633a875f6f?auto=format&fit=crop&w=1200&q=80" alt="Supply chain tour"></div>
@@ -261,8 +301,17 @@
   </div>
 </div>
 
+<!-- PHOTO LIGHTBOX -->
+<div class="photo-lightbox" id="photoLightbox">
+  <button class="lb-close" title="Close">&times;</button>
+  <button class="lb-nav lb-prev" title="Previous">&#8249;</button>
+  <img id="lb-img" src="" alt="Enlarged photo">
+  <button class="lb-nav lb-next" title="Next">&#8250;</button>
+  <span class="lb-counter" id="lb-counter"></span>
+</div>
+
 <script>
-  // Program modal
+  /* ── Program modal ── */
   const modal = document.getElementById('programModal');
   const chipEl = modal.querySelector('[data-modal-chip]');
   const titleEl = modal.querySelector('[data-modal-title]');
@@ -283,7 +332,7 @@
     document.body.style.overflow = 'hidden';
   };
 
-  // ✅ FIXED: openLecture now reads from data-photos
+  /* ── Lecture modal ── */
   function openLecture(e) {
     const card = e.currentTarget || e.target.closest('article');
     const n = card.dataset.num;
@@ -295,11 +344,11 @@
     document.getElementById('lec-desc').textContent = desc || 'Description will be added after the session.';
 
     const grid = document.getElementById('lec-photos');
-    const photos = (card.dataset.photos || '').split(',').filter(Boolean);
+    const photos = (card.dataset.photos || '').split(',').map(s => s.trim()).filter(Boolean);
 
     if (photos.length > 0) {
       grid.innerHTML = photos.map((url, i) =>
-        `<img src="${url.trim()}" alt="Session photo ${i+1}" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px;">`
+        `<img src="${url}" alt="Session photo ${i+1}" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">`
       ).join('');
     } else {
       grid.innerHTML = `<p style="color:#475569; font-size:0.85rem;">No photos available yet.</p>`;
@@ -314,10 +363,64 @@
     document.body.style.overflow = '';
   }
 
+  /* ── Photo Lightbox ── */
+  let lbPhotos = [];
+  let lbIndex = 0;
+  const lb = document.getElementById('photoLightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbCounter = document.getElementById('lb-counter');
+
+  function openLightbox(imgEl) {
+    // all sibling images in the same grid
+    const container = imgEl.parentElement;
+    lbPhotos = Array.from(container.querySelectorAll('img')).map(img => img.src);
+    lbIndex = lbPhotos.indexOf(imgEl.src);
+    if (lbIndex < 0) lbIndex = 0;
+    showLbPhoto();
+    lb.classList.add('open');
+  }
+
+  function showLbPhoto() {
+    lbImg.src = lbPhotos[lbIndex];
+    lbCounter.textContent = `${lbIndex + 1} / ${lbPhotos.length}`;
+    // hide nav arrows if only one photo
+    lb.querySelector('.lb-prev').style.display = lbPhotos.length <= 1 ? 'none' : '';
+    lb.querySelector('.lb-next').style.display = lbPhotos.length <= 1 ? 'none' : '';
+  }
+
+  function closeLightbox() { lb.classList.remove('open'); }
+
+  lb.addEventListener('click', (e) => {
+    // close when clicking the backdrop
+    if (e.target === lb) closeLightbox();
+  });
+  lb.querySelector('.lb-close').addEventListener('click', closeLightbox);
+  lb.querySelector('.lb-prev').addEventListener('click', (e) => {
+    e.stopPropagation();
+    lbIndex = (lbIndex - 1 + lbPhotos.length) % lbPhotos.length;
+    showLbPhoto();
+  });
+  lb.querySelector('.lb-next').addEventListener('click', (e) => {
+    e.stopPropagation();
+    lbIndex = (lbIndex + 1) % lbPhotos.length;
+    showLbPhoto();
+  });
+
+  /* ── Keyboard nav ── */
+  document.addEventListener('keydown', (e) => {
+    if (lb.classList.contains('open')) {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') { lbIndex = (lbIndex - 1 + lbPhotos.length) % lbPhotos.length; showLbPhoto(); }
+      if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % lbPhotos.length; showLbPhoto(); }
+      return;
+    }
+    if (e.key === 'Escape') { close(); closeLecture(); }
+  });
+
+  /* ── Program card click ── */
   document.querySelectorAll('.program-card').forEach(c => c.addEventListener('click', () => open(c)));
   modal.querySelector('.detail-close').addEventListener('click', close);
   modal.querySelector('.detail-backdrop').addEventListener('click', close);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { close(); closeLecture(); } });
 </script>
 </body>
 </html>
