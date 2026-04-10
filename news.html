@@ -30,7 +30,6 @@
     .hero-glow-3 { position: absolute; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(16,185,129,0.15), transparent 70%); top: 30%; left: 55%; filter: blur(50px); animation: glow-drift 8s ease-in-out infinite 2s; pointer-events: none; }
     @keyframes glow-drift { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-20px) scale(1.1)} 66%{transform:translate(-20px,25px) scale(0.95)} }
 
-    /* grid lines like home page */
     .hero-grid { position: absolute; inset: 0; pointer-events: none;
       background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
       background-size: 60px 60px; }
@@ -58,6 +57,8 @@
     .chip-green { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
     .chip-blue { background: rgba(165,180,252,0.12); border: 1px solid rgba(165,180,252,0.3); color: #a5b4fc; }
     .chip-amber { background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.3); color: #fcd34d; }
+    .chip-rose { background: rgba(244,114,182,0.12); border: 1px solid rgba(244,114,182,0.3); color: #f9a8d4; }
+    .chip-cyan { background: rgba(34,211,238,0.12); border: 1px solid rgba(34,211,238,0.3); color: #67e8f9; }
     .section-title { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
 
     /* ===== EVENT CARDS ===== */
@@ -93,17 +94,12 @@
     .detail-meta { color: #64748b; font-size: 0.9rem; margin-bottom: 20px; }
     .detail-section-label { color: #e36515; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
     .detail-desc-box { background: rgba(227,101,21,0.04); border: 1px dashed rgba(227,101,21,0.15); border-radius: 12px; padding: 18px; color: #94a3b8; font-size: 0.9rem; line-height: 1.7; margin-bottom: 24px; }
-    .detail-photos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px; }
-    .detail-photos-grid img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 10px; cursor: zoom-in; transition: transform 0.3s, opacity 0.2s; }
+    .detail-photos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
+    .detail-photos-grid img { width: 100%; aspect-ratio: 3/2; object-fit: cover; border-radius: 10px; cursor: zoom-in; transition: transform 0.3s, opacity 0.2s; }
+    .detail-photos-grid img:only-child, .detail-photos-grid a:only-child img { grid-column: 1 / -1; max-height: 400px; aspect-ratio: auto; }
+    .detail-photos-grid a:only-child { grid-column: 1 / -1; }
     .detail-photos-grid img:hover { opacity: 0.85; transform: scale(1.03); }
-    .slides-area { background: rgba(79,70,229,0.06); border: 1px solid rgba(79,70,229,0.15); border-radius: 14px; padding: 20px; text-align: center; }
-    .slides-area .slides-icon { font-size: 2rem; margin-bottom: 8px; }
-    .slides-area h4 { color: #a5b4fc; font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
-    .slides-area p { color: #64748b; font-size: 0.82rem; margin-bottom: 12px; }
-    .slides-area a, .slides-area .slide-placeholder { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 10px; font-size: 0.82rem; font-weight: 700; text-decoration: none; transition: background 0.2s; }
-    .slides-area a { background: rgba(227,101,21,0.15); border: 1px solid rgba(227,101,21,0.3); color: #ffd9c2; }
-    .slides-area a:hover { background: rgba(227,101,21,0.25); }
-    .slides-area .slide-placeholder { background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.12); color: #475569; cursor: default; }
+
 
     /* ===== PHOTO LIGHTBOX ===== */
     .photo-lightbox { display: none; position: fixed; inset: 0; z-index: 500; align-items: center; justify-content: center; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); padding: 24px; cursor: zoom-out; }
@@ -128,13 +124,13 @@
       .desktop-nav { gap: 14px; }
       .desktop-nav a { font-size: 0.78rem; }
       .card-grid { grid-template-columns: 1fr; }
-      .detail-photos-grid { grid-template-columns: repeat(2, 1fr); }
+      .detail-photos-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- THREE.JS 3D BACKGROUND (same as home page) -->
+<!-- THREE.JS 3D BACKGROUND -->
 <canvas id="canvas3d"></canvas>
 
 <div class="page-wrap">
@@ -166,87 +162,197 @@
 <!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker">
-    <span>NNN Symposium 2026</span><span>Quantum Club Meetup</span><span>NordTech Albany</span><span>NEUSN Rochester</span><span>Spring 2026 Cohort Live</span><span>Micron Partnership</span><span>AIM Photonics Collab</span><span>Cornell Lab Tours</span>
-    <span>NNN Symposium 2026</span><span>Quantum Club Meetup</span><span>NordTech Albany</span><span>NEUSN Rochester</span><span>Spring 2026 Cohort Live</span><span>Micron Partnership</span><span>AIM Photonics Collab</span><span>Cornell Lab Tours</span>
+    <span>Research &amp; Tech Forum — Syracuse</span><span>Syracuse.com Feature</span><span>NNN Symposium 2026</span><span>Microelectronics Commons — DC</span><span>NEUSN Rochester</span><span>NordTech Albany</span><span>NSF ExLENT PI Conference</span><span>Spring 2026 Cohort Live</span>
+    <span>Research &amp; Tech Forum — Syracuse</span><span>Syracuse.com Feature</span><span>NNN Symposium 2026</span><span>Microelectronics Commons — DC</span><span>NEUSN Rochester</span><span>NordTech Albany</span><span>NSF ExLENT PI Conference</span><span>Spring 2026 Cohort Live</span>
   </div>
 </div>
 
 <section class="page-sections">
 
-  <!-- CONFERENCES -->
+  <!-- ═══════════════════════════════════
+       MEDIA & OUTREACH
+  ═══════════════════════════════════ -->
   <div class="section-block">
     <div class="section-header">
-      <span class="section-chip chip-green">Conferences & Symposiums</span>
-      
+      <span class="section-chip chip-rose">Media & Outreach</span>
     </div>
     <div class="card-grid">
 
+      <!-- Research and Technology Forum -->
       <article class="event-card" onclick="openEvent(this)"
-        data-chip="Symposium" data-title="Northeast University Network for Semiconductor (NEUNS) Symposium"
-        data-date="Spring 2026" data-location="Rochester, NY" data-desc=""
-        data-photos="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1591115765373-5207764f72e7?auto=format&fit=crop&w=900&q=80"
-        data-slides="" data-slides-label="">
+        data-chip="Forum" data-title="Research and Technology Forum"
+        data-date="April 1, 2026" data-location="Downtown Syracuse, NY"
+        data-desc="The Q-SUCCEED-CNY team delivered a presentation titled 'How Q-SUCCEED-CNY Connects Local Residents to Emerging Semiconductor and Quantum Career Opportunities' at the April Research and Technology Forum in Downtown Syracuse. The event attracted a diverse audience that included industry representatives, community organizations, students, and members of the broader community. The presentation emphasized the importance of cross-sector collaboration — bringing together stakeholders with the shared goal of building a strong regional semiconductor ecosystem capable of serving both the semiconductor industry and its adjacent sectors."
+        data-photos="Qsucceed photos/IMG_6581.jpg,Qsucceed photos/IMG_0829.jpeg"
+       >
         <div class="card-media">
-          <span class="card-pill">Symposium</span>
-          <span class="card-date-badge">Spring 2026</span>
-          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=900&q=80" alt="NEUSN Symposium">
+          <span class="card-pill">Presentation</span>
+          <span class="card-date-badge">April 1, 2026</span>
+          <img src="Qsucceed photos/IMG_6581.jpg" alt="Research and Technology Forum">
         </div>
         <div class="card-body">
-          <h3>NEUSN Symposium — Rochester</h3>
-          <p>Northeast University Semiconductor Network gathering.</p>
-          <div class="card-tags"><span class="card-tag">Presentation</span><span class="card-tag">Semiconductor</span><span class="card-tag">Rochester</span></div>
+          <h3>Research and Technology Forum — Syracuse</h3>
+          <p>Q-SUCCEED-CNY presented on connecting local residents to semiconductor and quantum career opportunities at the April forum in Downtown Syracuse.</p>
+          <div class="card-tags"><span class="card-tag">Presentation</span><span class="card-tag">Community</span><span class="card-tag">Syracuse</span></div>
         </div>
       </article>
 
+      <!-- Syracuse.com Feature Article -->
       <article class="event-card" onclick="openEvent(this)"
-        data-chip="Forum" data-title="NordTech Meeting — Albany"
-        data-date="Spring 2026" data-location="Albany, NY" data-desc=""
-        data-photos="https://images.unsplash.com/photo-1587825140708-dfaf18c09b78?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=900&q=80"
-        data-slides="" data-slides-label="">
+        data-chip="Media" data-title="Syracuse.com Feature Article"
+        data-date="March 17, 2026" data-location="Syracuse, NY"
+        data-desc="The Q-SUCCEED-CNY program was promoted to a broader community audience through a feature article published on Syracuse.com, in which Dr. Hasanovic spoke about the program, the ongoing cohort in partnership with SCSD Adult Education, and plans for future cohorts. The article highlighted that the program pays participants $2,400 to spend a semester exploring careers in semiconductors, quantum technologies, and photonics, and is intentionally designed to be beginner-friendly — targeting adults with no prior technical background who are considering a career change. The program is also coordinating with other state workforce initiatives to support broader regional growth in the emerging technology sector."
+        data-photos="Qsucceed photos/syracuse.png"
+        data-link="https://www.syracuse.com/business/2026/03/get-paid-to-learn-about-lasers-vacuums-and-high-tech-careers-in-this-syracuse-university-program.html"
+       >
         <div class="card-media">
-          <span class="card-pill">Forum</span>
-          <span class="card-date-badge">Spring 2026</span>
-          <img src="https://images.unsplash.com/photo-1587825140708-dfaf18c09b78?auto=format&fit=crop&w=900&q=80" alt="NordTech Albany">
+          <span class="card-pill">Media</span>
+          <span class="card-date-badge">March 17, 2026</span>
+          <img src="Qsucceed photos/syracuse.png" alt="Syracuse.com Feature">
         </div>
         <div class="card-body">
-          <h3>NordTech Meeting — Albany</h3>
-          <p>Regional workforce pipeline strategy forum.</p>
-          <div class="card-tags"><span class="card-tag">Forum</span><span class="card-tag">Policy</span><span class="card-tag">Albany</span></div>
-        </div>
-      </article>
-
-      <article class="event-card" onclick="openEvent(this)"
-        data-chip="Symposium" data-title="National Nanotechnology Network (NNN) Symposium"
-        data-date="2026" data-location="TBD" data-desc=""
-        data-photos="https://images.unsplash.com/photo-1559223607-a43c990c692c?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=900&q=80"
-        data-slides="" data-slides-label="">
-        <div class="card-media">
-          <span class="card-pill">Symposium</span>
-          <span class="card-date-badge">2026</span>
-          <img src="https://images.unsplash.com/photo-1559223607-a43c990c692c?auto=format&fit=crop&w=900&q=80" alt="NNN Symposium">
-        </div>
-        <div class="card-body">
-          <h3>NNN Symposium</h3>
-          <p>National Nanotechnology Network poster and talk.</p>
-          <div class="card-tags"><span class="card-tag">Poster</span><span class="card-tag">NSF</span><span class="card-tag">Nanotechnology</span></div>
+          <h3>Syracuse.com Feature Article</h3>
+          <p>A feature article on Syracuse.com highlighted the Q-SUCCEED-CNY program, its $2,400 stipend for participants, and plans for future cohorts targeting career changers.</p>
+          <div class="card-tags"><span class="card-tag">Media</span><span class="card-tag">Syracuse.com</span><span class="card-tag">Outreach</span></div>
         </div>
       </article>
 
     </div>
   </div>
 
-  <!-- CAMPUS -->
+  <!-- ═══════════════════════════════════
+       CONFERENCES & SYMPOSIUMS (Spring 2026)
+  ═══════════════════════════════════ -->
   <div class="section-block">
     <div class="section-header">
-      <span class="section-chip chip-blue">Campus & Club Events</span>
+      <span class="section-chip chip-green">Conferences & Symposiums</span>
+    </div>
+    <div class="card-grid">
+
+      <!-- NNN Symposium -->
+      <article class="event-card" onclick="openEvent(this)"
+        data-chip="Symposium" data-title="New York State Nanotechnology Network (NNN) Symposium"
+        data-date="March 23, 2026" data-location="Syracuse University"
+        data-desc="PI Dr. Mo Hasanovic, Co-PI Dr. Arnault, and Co-PI Dr. Jones attended the New York State Nanotechnology Network (NNN) Symposium, hosted at Syracuse University. Dr. Hasanovic and Dr. Jones held several private meetings focused on strengthening industry-academic partnerships and exploring areas of mutual collaboration. Dr. Arnault and his research team presented a poster, and Dr. Jones delivered the closing remarks for the event. The New York State Nanotechnology Network is a partnership of New York-based industry, academic, and research institutions dedicated to advancing nanotechnology research, education, and workforce development. The network facilitates collaboration on shared technical challenges, connects students with industry partners, and promotes the visibility of local expertise across the state."
+        data-photos=""
+       >
+        <div class="card-media">
+          <span class="card-pill">Symposium</span>
+          <span class="card-date-badge">March 23, 2026</span>
+          <img src="https://images.unsplash.com/photo-1559223607-a43c990c692c?auto=format&fit=crop&w=900&q=80" alt="NNN Symposium">
+        </div>
+        <div class="card-body">
+          <h3>NNN Symposium — Syracuse University</h3>
+          <p>Dr. Hasanovic, Dr. Arnault, and Dr. Jones attended the NNN Symposium at Syracuse University, with a poster presentation and closing remarks.</p>
+          <div class="card-tags"><span class="card-tag">Poster</span><span class="card-tag">NSF</span><span class="card-tag">Nanotechnology</span></div>
+        </div>
+      </article>
+
+      <!-- Microelectronics Commons Annual Meeting -->
+      <article class="event-card" onclick="openEvent(this)"
+        data-chip="Conference" data-title="Microelectronics Commons Annual Meeting"
+        data-date="February 18–20, 2026" data-location="Washington, DC"
+        data-desc="Dr. Hasanovic attended the Microelectronics Commons Annual Meeting, held under the theme 'Celebrating Innovation, Impact, and the Future of U.S. Microelectronics.' The event provided an opportunity to connect with partners beyond the New York State region, learn about national-level efforts to build a semiconductor workforce, and gain actionable insights from key Department of Defense leaders regarding policy decisions and funding priorities. Microelectronics Commons is a national network of regional hubs funded by the U.S. Department of Defense under the CHIPS and Science Act, designed to accelerate the translation of microelectronics research into scalable applications by connecting universities, national laboratories, and industry partners through shared prototyping facilities, workforce training, and technology development initiatives."
+        data-photos=""
+       >
+        <div class="card-media">
+          <span class="card-pill">Conference</span>
+          <span class="card-date-badge">Feb 18–20, 2026</span>
+          <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=900&q=80" alt="Microelectronics Commons">
+        </div>
+        <div class="card-body">
+          <h3>Microelectronics Commons Annual Meeting — DC</h3>
+          <p>Dr. Hasanovic connected with national partners and DoD leaders at the Microelectronics Commons meeting under the CHIPS and Science Act.</p>
+          <div class="card-tags"><span class="card-tag">CHIPS Act</span><span class="card-tag">DoD</span><span class="card-tag">Washington DC</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       FALL 2025 EVENTS
+  ═══════════════════════════════════ -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-chip chip-blue">Fall 2025 Events</span>
+    </div>
+    <div class="card-grid">
+
+      <!-- NEUSN Semiconductor Talent Summit -->
+      <article class="event-card" onclick="openEvent(this)"
+        data-chip="Summit" data-title="NEUSN Semiconductor Talent Summit"
+        data-date="November 18–19, 2025" data-location="Rochester, NY"
+        data-desc="PI Dr. Mo Hasanovic and Co-PI Dr. Ghosh attended the Micron Northeast University Semiconductor Network (NEUSN) Summit in Rochester, held under the theme 'Strengthening the Network for Building Semiconductor Talent.' Dr. Hasanovic served as a panelist in the session focused on the Micron Education Hub, sharing his experience with this educational platform and its application across multiple programs. The Q-SUCCEED-CNY team also presented a program poster, which generated significant interest and engagement among attendees. The Northeast University Semiconductor Network is a partnership of over 20 higher education institutions — including Syracuse University, RIT, SUNY, CUNY, and Cornell — launched by Micron Technology in 2023. The network aims to build a robust U.S. semiconductor workforce pipeline through curriculum modernization, experiential learning, and expanded research opportunities in support of new domestic manufacturing facilities."
+        data-photos="Qsucceed photos/NEUSN Rochester.jpg"
+       >
+        <div class="card-media">
+          <span class="card-pill">Summit</span>
+          <span class="card-date-badge">Nov 18–19, 2025</span>
+          <img src="Qsucceed photos/NEUSN Rochester.jpg" alt="NEUSN Summit">
+        </div>
+        <div class="card-body">
+          <h3>NEUSN Semiconductor Talent Summit — Rochester</h3>
+          <p>Dr. Hasanovic served as a panelist on the Micron Education Hub and the team presented a poster at this 20+ institution semiconductor network gathering.</p>
+          <div class="card-tags"><span class="card-tag">Panel</span><span class="card-tag">Poster</span><span class="card-tag">Micron</span></div>
+        </div>
+      </article>
+
+      <!-- NSF ExLENT PI Conference -->
+      <article class="event-card" onclick="openEvent(this)"
+        data-chip="Conference" data-title="NSF ExLENT Principal Investigators Conference"
+        data-date="November 4–7, 2025" data-location="Washington, DC"
+        data-desc="Dr. Mo Hasanovic attended the NSF ExLENT PI Conference, which convenes principal investigators from all funded ExLENT programs. The event offered a valuable opportunity to hear directly from fellow PIs about their experiences with the program. A number of practical recommendations were gathered during the conference that are expected to be particularly useful during the initiation phase of the Q-SUCCEED-CNY program. NSF's Experiential Learning for Emerging and Novel Technologies (ExLENT) program funds inclusive, experiential learning opportunities that build foundational skills in emerging technology sectors — including quantum information science, microelectronics, and advanced manufacturing — for learners across a broad range of educational and professional backgrounds."
+        data-photos=""
+       >
+        <div class="card-media">
+          <span class="card-pill">Conference</span>
+          <span class="card-date-badge">Nov 4–7, 2025</span>
+          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=900&q=80" alt="NSF ExLENT PI Conference">
+        </div>
+        <div class="card-body">
+          <h3>NSF ExLENT PI Conference — Washington, DC</h3>
+          <p>Dr. Hasanovic joined fellow PIs from all funded ExLENT programs to share experiences and gather practical recommendations for Q-SUCCEED-CNY's launch.</p>
+          <div class="card-tags"><span class="card-tag">NSF</span><span class="card-tag">ExLENT</span><span class="card-tag">Washington DC</span></div>
+        </div>
+      </article>
+
+      <!-- NORDTECH Workforce Development Summit -->
+      <article class="event-card" onclick="openEvent(this)"
+        data-chip="Summit" data-title="NORDTECH Workforce Development Summit"
+        data-date="October 2, 2025" data-location="Albany, NY"
+        data-desc="PI Dr. Mo Hasanovic participated alongside other Syracuse University faculty and staff in the NORDTECH Workforce Development Summit in Albany, NY. The event provided an opportunity to connect with institutional partners and engage in discussions on ongoing regional workforce development initiatives, as well as to highlight how Q-SUCCEED-CNY contributes to the broader semiconductor educational ecosystem in New York State. The Northeast Regional Defense Technology Hub (NORDTECH) is a regional coalition of public and private sector experts operating in and around New York State. NORDTECH is a member of the U.S. Microelectronics Commons program, and its board is advised by a diverse group of stakeholders — including small and medium semiconductor manufacturing companies, community colleges, universities, and major corporations that are service providers and leaders in semiconductor device design, fabrication, and production — all representing planned participants in NORDTECH's response to the U.S. Department of Defense's call for a Microelectronics Commons Hub."
+        data-photos=""
+       >
+        <div class="card-media">
+          <span class="card-pill">Summit</span>
+          <span class="card-date-badge">Oct 2, 2025</span>
+          <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=900&q=80" alt="NORDTECH Summit">
+        </div>
+        <div class="card-body">
+          <h3>NORDTECH Workforce Development Summit — Albany</h3>
+          <p>Dr. Hasanovic joined Syracuse University colleagues at the NORDTECH summit to discuss regional workforce development and Q-SUCCEED-CNY's role in the semiconductor ecosystem.</p>
+          <div class="card-tags"><span class="card-tag">NORDTECH</span><span class="card-tag">Workforce</span><span class="card-tag">Albany</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       CAMPUS & CLUB EVENTS
+  ═══════════════════════════════════ -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-chip chip-cyan">Campus & Club Events</span>
     </div>
     <div class="card-grid">
 
       <article class="event-card" onclick="openEvent(this)"
         data-chip="Club Event" data-title="Quantum Club Collaboration — Syracuse University"
         data-date="Spring 2026" data-location="Syracuse University" data-desc=""
-        data-photos="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80"
-        data-slides="" data-slides-label="">
+        data-photos=""
+       >
         <div class="card-media">
           <span class="card-pill">Club Event</span>
           <span class="card-date-badge">Spring 2026</span>
@@ -262,7 +368,9 @@
     </div>
   </div>
 
-  <!-- UPCOMING -->
+  <!-- ═══════════════════════════════════
+       COMING UP
+  ═══════════════════════════════════ -->
   <div class="section-block">
     <div class="section-header">
       <span class="section-chip chip-amber">Coming Up</span>
@@ -295,12 +403,11 @@
       <h3 id="ev-title"></h3>
       <p class="detail-meta" id="ev-meta"></p>
     </div>
+    <p class="detail-section-label" id="ev-photos-label">📷 Event Photos</p>
+    <div class="detail-photos-grid" id="ev-photos"></div>
     <p class="detail-section-label">About This Event</p>
     <div class="detail-desc-box" id="ev-desc"></div>
-    <p class="detail-section-label">📷 Event Photos</p>
-    <div class="detail-photos-grid" id="ev-photos"></div>
-    <p class="detail-section-label">📑 Presentation Slides</p>
-    <div class="slides-area" id="ev-slides"></div>
+
   </div>
 </div>
 
@@ -313,13 +420,11 @@
   <span class="lb-counter" id="lb-counter"></span>
 </div>
 
-
 </div><!-- /page-wrap -->
 
 <script>
   /* ══════════════════════════════════════
      THREE.JS 3D PARTICLE BACKGROUND
-     Matches home page canvas effect
   ══════════════════════════════════════ */
   (function(){
     const canvas = document.getElementById('canvas3d');
@@ -331,17 +436,16 @@
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
     camera.position.z = 30;
 
-    // Particles
     const COUNT = 300;
     const geo = new THREE.BufferGeometry();
     const positions = new Float32Array(COUNT * 3);
     const colors = new Float32Array(COUNT * 3);
     const palette = [
-      [0.89, 0.40, 0.08],  // orange #e36515
-      [0.31, 0.27, 0.90],  // indigo #4f46e5
-      [0.06, 0.73, 0.50],  // green  #10b981
-      [0.65, 0.71, 0.99],  // lavender #a5b4fc
-      [0.96, 0.62, 0.04],  // amber  #f59e0b
+      [0.89, 0.40, 0.08],
+      [0.31, 0.27, 0.90],
+      [0.06, 0.73, 0.50],
+      [0.65, 0.71, 0.99],
+      [0.96, 0.62, 0.04],
     ];
 
     for(let i=0; i<COUNT; i++){
@@ -355,17 +459,12 @@
     geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const mat = new THREE.PointsMaterial({
-      size: 0.15,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.7,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false
+      size: 0.15, vertexColors: true, transparent: true, opacity: 0.7,
+      blending: THREE.AdditiveBlending, depthWrite: false
     });
     const points = new THREE.Points(geo, mat);
     scene.add(points);
 
-    // Connecting lines
     const lineMat = new THREE.LineBasicMaterial({ color: 0xe36515, transparent: true, opacity: 0.04, blending: THREE.AdditiveBlending, depthWrite: false });
     const lineGeo = new THREE.BufferGeometry();
     const linePositions = new Float32Array(200 * 6);
@@ -373,7 +472,6 @@
     const lines = new THREE.LineSegments(lineGeo, lineMat);
     scene.add(lines);
 
-    // Glow spheres
     const glowMat1 = new THREE.MeshBasicMaterial({ color: 0xe36515, transparent: true, opacity: 0.03 });
     const glowMat2 = new THREE.MeshBasicMaterial({ color: 0x4f46e5, transparent: true, opacity: 0.025 });
     const glowGeo = new THREE.SphereGeometry(5, 16, 16);
@@ -398,18 +496,13 @@
     function animate(){
       requestAnimationFrame(animate);
       const t = Date.now()*0.0003;
-
-      // Rotate particles
       points.rotation.y = t*0.15 + mouseX*0.08;
       points.rotation.x = Math.sin(t*0.5)*0.05 + mouseY*0.05;
-
-      // Animate glow spheres
       glow1.position.x = Math.sin(t)*12;
       glow1.position.y = Math.cos(t*0.7)*8;
       glow2.position.x = Math.cos(t*0.8)*10;
       glow2.position.y = Math.sin(t*1.1)*6;
 
-      // Update connecting lines
       const pos = geo.attributes.position.array;
       let li = 0;
       const lp = lineGeo.attributes.position.array;
@@ -426,7 +519,6 @@
       }
       for(let k=li*6; k<lp.length; k++) lp[k]=0;
       lineGeo.attributes.position.needsUpdate = true;
-
       renderer.render(scene, camera);
     }
     animate();
@@ -440,16 +532,25 @@
     document.getElementById('ev-desc').textContent = card.dataset.desc || 'Description will be added soon.';
 
     const photosGrid = document.getElementById('ev-photos');
+    const photosLabel = document.getElementById('ev-photos-label');
     const photos = (card.dataset.photos || '').split(',').map(s => s.trim()).filter(Boolean);
-    photosGrid.innerHTML = photos.length
-      ? photos.map((url, i) => `<img src="${url}" alt="Event photo ${i+1}" onclick="openLightbox(this)">`).join('')
-      : `<p style="color:#475569; font-size:0.85rem; grid-column:1/-1;">Photos will be added after the event.</p>`;
+    const articleLink = card.dataset.link || '';
+    if (photos.length) {
+      photosLabel.style.display = '';
+      photosGrid.style.display = '';
+      if (articleLink) {
+        photosLabel.textContent = '🔗 Read the Full Article';
+        photosGrid.innerHTML = photos.map((url, i) => `<a href="${articleLink}" target="_blank" rel="noopener" style="display:block;"><img src="${url}" alt="Event photo ${i+1}" style="cursor:pointer;"></a>`).join('');
+      } else {
+        photosLabel.textContent = '📷 Event Photos';
+        photosGrid.innerHTML = photos.map((url, i) => `<img src="${url}" alt="Event photo ${i+1}" onclick="openLightbox(this)">`).join('');
+      }
+    } else {
+      photosLabel.style.display = 'none';
+      photosGrid.style.display = 'none';
+    }
 
-    const slidesArea = document.getElementById('ev-slides');
-    const sUrl = card.dataset.slides, sLabel = card.dataset.slidesLabel;
-    slidesArea.innerHTML = sUrl
-      ? `<div class="slides-icon">📊</div><h4>${sLabel||'Presentation Deck'}</h4><p>View or download the slides from this event.</p><a href="${sUrl}" target="_blank" rel="noopener">Open Slides ↗</a>`
-      : `<div class="slides-icon">📎</div><h4>Slides Coming Soon</h4><p>The presentation deck will be uploaded here after the event.</p><span class="slide-placeholder">Pending Upload</span>`;
+
 
     document.getElementById('eventModal').classList.add('open');
     document.body.style.overflow = 'hidden';
