@@ -99,6 +99,285 @@
 
     /* Make gallery thumbnails show a zoom cursor */
     #lec-photos img, .detail-photos img { cursor: zoom-in; }
+
+    /* ===== FIELD TRIP SHOWCASE ===== */
+    .ft-showcase {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      cursor: pointer;
+      isolation: isolate;
+    }
+
+    /* Animated border glow */
+    .ft-showcase::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 26px;
+      background: conic-gradient(
+        from var(--ft-angle, 0deg),
+        #0ea5e9, #6366f1, #a855f7, #ec4899, #f59e0b, #10b981, #0ea5e9
+      );
+      z-index: -2;
+      animation: ftBorderSpin 6s linear infinite;
+    }
+    @property --ft-angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+    @keyframes ftBorderSpin {
+      to { --ft-angle: 360deg; }
+    }
+
+    .ft-showcase-inner {
+      position: relative;
+      background: #0d1226;
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    /* Hero banner area */
+    .ft-hero {
+      position: relative;
+      height: 360px;
+      overflow: hidden;
+    }
+    .ft-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 8s ease-out;
+    }
+    .ft-showcase:hover .ft-hero img {
+      transform: scale(1.08);
+    }
+
+    /* Overlay gradient */
+    .ft-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 20%, rgba(13,18,38,0.4) 50%, rgba(13,18,38,0.95) 85%, #0d1226 100%),
+        linear-gradient(90deg, rgba(6,182,212,0.15) 0%, transparent 50%);
+      z-index: 1;
+    }
+
+    /* Floating particles on the hero */
+    .ft-particles {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .ft-particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(165,180,252,0.6);
+      border-radius: 50%;
+      animation: ftFloat linear infinite;
+    }
+    @keyframes ftFloat {
+      0% { transform: translateY(100%) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-360px) scale(1); opacity: 0; }
+    }
+
+    /* Content over the hero */
+    .ft-hero-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px 36px 28px;
+      z-index: 3;
+    }
+
+    .ft-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(6,182,212,0.15);
+      border: 1px solid rgba(6,182,212,0.4);
+      color: #67e8f9;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 14px;
+      backdrop-filter: blur(8px);
+      animation: ftBadgePulse 3s ease-in-out infinite;
+    }
+    .ft-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22d3ee;
+      animation: ftDotPulse 2s ease-in-out infinite;
+    }
+    @keyframes ftDotPulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(34,211,238,0.6); }
+      50% { opacity: 0.4; box-shadow: 0 0 2px rgba(34,211,238,0.2); }
+    }
+    @keyframes ftBadgePulse {
+      0%, 100% { border-color: rgba(6,182,212,0.4); }
+      50% { border-color: rgba(6,182,212,0.7); }
+    }
+
+    .ft-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+    .ft-title span {
+      background: linear-gradient(135deg, #67e8f9, #a5b4fc, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ft-subtitle {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    /* Bottom info strip */
+    .ft-info-strip {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .ft-info-cell {
+      flex: 1;
+      padding: 20px 24px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      transition: background 0.3s;
+    }
+    .ft-info-cell:last-child { border-right: none; }
+    .ft-showcase:hover .ft-info-cell { background: rgba(255,255,255,0.02); }
+
+    .ft-info-label {
+      color: #64748b;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+    .ft-info-value {
+      color: #e2e8f0;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* CTA arrow */
+    .ft-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: #67e8f9;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      gap: 8px;
+      transition: background 0.3s, gap 0.3s;
+    }
+    .ft-showcase:hover .ft-cta {
+      background: rgba(6,182,212,0.06);
+      gap: 14px;
+    }
+    .ft-cta-arrow {
+      display: inline-block;
+      transition: transform 0.3s;
+    }
+    .ft-showcase:hover .ft-cta-arrow {
+      transform: translateX(4px);
+    }
+
+    /* Scroll-triggered reveal */
+    .ft-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .ft-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Scanline effect on hover */
+    .ft-scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(6,182,212,0.6), transparent);
+      z-index: 4;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s;
+    }
+    .ft-showcase:hover .ft-scanline {
+      opacity: 1;
+      animation: ftScanline 2s linear infinite;
+    }
+    @keyframes ftScanline {
+      0% { transform: translateY(-10px); }
+      100% { transform: translateY(360px); }
+    }
+
+    /* Photo strip thumbnails at bottom */
+    .ft-photo-strip {
+      display: flex;
+      gap: 4px;
+      padding: 12px 16px 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .ft-photo-strip::-webkit-scrollbar { display: none; }
+    .ft-photo-strip img {
+      width: 64px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 6px;
+      opacity: 0.5;
+      transition: opacity 0.3s, transform 0.3s;
+      flex-shrink: 0;
+    }
+    .ft-photo-strip img:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      .ft-hero { height: 260px; }
+      .ft-info-strip { flex-wrap: wrap; }
+      .ft-info-cell { flex: 1 1 50%; }
+      .ft-info-cell:nth-child(2) { border-right: none; }
+      .ft-hero-content { padding: 20px 20px 16px; }
+    }
+
+    /* Fallback for browsers that don't support @property */
+    @supports not (background: conic-gradient(from 0deg, red, blue)) {
+      .ft-showcase::before {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1, #a855f7);
+      }
+    }
   </style>
 </head>
 <body>
@@ -257,26 +536,125 @@ After the lecture, participants got hands-on experience working with a Vacuum Tr
     </div>
   </div>
 
-  <!-- FIELD TRIPS -->
+  <!-- ===== FIELD TRIP — FANCY SHOWCASE ===== -->
   <div class="section-block">
     <div class="section-header">
-      <span class="section-chip">Field Trips</span>
+      <span class="section-chip">Field Trip</span>
       <h2 class="section-title">Inside the Ecosystem</h2>
-      <p class="section-desc">Factory walk-throughs and lab tours exploring tooling, safety culture, and career ladders.</p>
+      <p class="section-desc">A hands-on visit to one of the nation's leading nanofabrication facilities experiencing cleanroom culture, wafer processing, and the precision behind microchip manufacturing.</p>
     </div>
-    <div class="card-grid">
-      <article class="program-card" data-chip="Field Trip" data-title="Albany NanoTech Complex" data-meta="Process Lines • Metrology" data-desc="See front-end fabs up close: contamination control, lithography windows, and how technicians keep yield high." data-bullets="Glove-up walkthrough|Metrology and cleanroom etiquette|QA/QC huddles with staff" data-photos="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1581090706524-6c67e28e8415?auto=format&fit=crop&w=900&q=80">
-        <div class="card-media"><span class="card-pill">Tour</span><img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&w=1200&q=80" alt="NanoTech tour"></div>
-        <div class="card-meta"><h3>Cornell Clean Room Tour</h3><p class="meta-line">Cleanroom culture + process flow</p></div>
-      </article>
-      <article class="program-card" data-chip="Field Trip" data-title="Micron Preview & Supply Chain" data-meta="North Syracuse • Vendor Stops" data-desc="Preview supplier and logistics roles that make advanced packaging possible—perfect for ops-minded career changers." data-bullets="Facilities and EHS deep dive|Supply chain and incoming QA|Talks with shift leads" data-photos="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80">
-        <div class="card-media"><span class="card-pill">Supply Chain</span><img src="https://images.unsplash.com/photo-1517433456452-f9633a875f6f?auto=format&fit=crop&w=1200&q=80" alt="Supply chain tour"></div>
-        <div class="card-meta"><h3>Micron Preview & Supply Chain</h3><p class="meta-line">Packaging, logistics, facilities</p></div>
-      </article>
-      <article class="program-card" data-chip="Field Trip" data-title="Optics & Photonics Labs" data-meta="University + Industry Labs" data-desc="See alignment stations, laser safety, and detector setups; meet researchers who hire technician talent." data-bullets="Laser safety & PPE|Detector alignment live|Hiring Q&A with lab leads" data-photos="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1523966211575-eb4a017f3cc7?auto=format&fit=crop&w=900&q=80">
-        <div class="card-media"><span class="card-pill">Lab Tour</span><img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=80" alt="Optics lab"></div>
-        <div class="card-meta"><h3>Optics & Photonics Labs</h3><p class="meta-line">Alignment, detectors, and safety</p></div>
-      </article>
+
+    <div class="ft-showcase ft-reveal" onclick="openFieldTrip()">
+      <div class="ft-showcase-inner">
+        <!-- Scanline effect -->
+        <div class="ft-scanline"></div>
+
+        <!-- Hero image -->
+        <div class="ft-hero">
+          <img src="Qsucceed%20photos/FT/img%20(2).jpeg" alt="Cornell Clean Room Field Trip">
+          <div class="ft-hero-overlay"></div>
+
+          <!-- Floating particles -->
+          <div class="ft-particles" id="ftParticles"></div>
+
+          <!-- Content over hero -->
+          <div class="ft-hero-content">
+            <div class="ft-badge">
+              <span class="ft-badge-dot"></span>
+              Field Trip
+            </div>
+            <h3 class="ft-title">Cornell <span>Clean Room</span> Field Trip</h3>
+            <p class="ft-subtitle">Participants visited the Cornell NanoScale Science and Technology Facility. One group toured the cleanroom to observe wafer processing and photomask alignment up close, while the other explored the Cornell campus.</p>
+          </div>
+        </div>
+
+        <!-- Info strip -->
+        <div class="ft-info-strip">
+          <div class="ft-info-cell">
+            <div class="ft-info-label">Location</div>
+            <div class="ft-info-value">Cornell University, Ithaca NY</div>
+          </div>
+          <div class="ft-info-cell">
+            <div class="ft-info-label">Facility</div>
+            <div class="ft-info-value">CNF Clean Room</div>
+          </div>
+        </div>
+
+        <!-- Thumbnail strip -->
+        <div class="ft-photo-strip">
+          <img src="Qsucceed%20photos/FT/img%20(1).jpeg" alt="FT 1">
+          <img src="Qsucceed%20photos/FT/img%20(2).jpeg" alt="FT 2">
+          <img src="Qsucceed%20photos/FT/img%20(3).jpeg" alt="FT 3">
+          <img src="Qsucceed%20photos/FT/img%20(4).jpeg" alt="FT 4">
+          <img src="Qsucceed%20photos/FT/img%20(5).jpeg" alt="FT 5">
+          <img src="Qsucceed%20photos/FT/img%20(6).jpeg" alt="FT 6">
+          <img src="Qsucceed%20photos/FT/img%20(7).jpeg" alt="FT 7">
+          <img src="Qsucceed%20photos/FT/img%20(8).jpeg" alt="FT 8">
+          <img src="Qsucceed%20photos/FT/img%20(9).jpeg" alt="FT 9">
+          <img src="Qsucceed%20photos/FT/img%20(10).jpeg" alt="FT 10">
+          <img src="Qsucceed%20photos/FT/img%20(11).jpeg" alt="FT 11">
+          <img src="Qsucceed%20photos/FT/img%20(12).jpeg" alt="FT 12">
+          <img src="Qsucceed%20photos/FT/img%20(13).jpeg" alt="FT 13">
+          <img src="Qsucceed%20photos/FT/img.jpeg" alt="FT 14">
+          <img src="Qsucceed%20photos/FT/img%20(15).jpeg" alt="FT 15">
+          <img src="Qsucceed%20photos/FT/img%20(16).jpeg" alt="FT 16">
+          <img src="Qsucceed%20photos/FT/img%20(17).jpeg" alt="FT 17">
+        </div>
+
+        <!-- CTA -->
+        <div class="ft-cta">
+          View Photos & Details <span class="ft-cta-arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIELD TRIP MODAL -->
+  <div class="detail-modal" id="ftModal">
+    <div class="detail-backdrop" onclick="closeFieldTrip()"></div>
+    <div class="detail-card" style="max-width:760px;">
+      <button class="detail-close" onclick="closeFieldTrip()">&times;</button>
+      <div class="detail-head">
+        <span class="detail-chip" style="background:rgba(6,182,212,0.15); border-color:rgba(6,182,212,0.4); color:#67e8f9;">Field Trip</span>
+        <h3>Cornell Clean Room Field Trip</h3>
+        <p class="detail-meta">Cornell NanoScale Science &amp; Technology Facility, Ithaca NY</p>
+      </div>
+      <p style="color:#64748b; font-size:0.85rem; margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Trip Description</p>
+      <div style="background:#0d1226; border:1px dashed rgba(255,255,255,0.12); border-radius:10px; padding:16px; color:#94a3b8; font-size:0.9rem; line-height:1.7; min-height:80px; margin-bottom:24px;">
+        <p style="margin-bottom:12px;">Participants toured the Cornell NanoScale Science and Technology Facility (CNF), guided by Tom through the cleanroom. The group observed the full semiconductor fabrication process — from wafer preparation and spin-coating of photoresist, to UV exposure through photomasks that transfer intricate circuit patterns onto silicon. Inside the yellow-lit lithography bay, participants saw firsthand how photomasks act as stencils, projecting nanoscale designs onto coated wafers with precise alignment under microscope stations.</p>
+        <p style="margin-bottom:16px;">Participants suited up in full cleanroom gowns, gloves, and hairnets before entering the controlled environment, learning about the strict contamination protocols that keep particle counts near zero. They observed technicians handling wafers, operating deposition and etching equipment, and inspecting patterned chips through the CNF's transparent wafer holders. Meanwhile, a second group enjoyed a campus tour, taking in Cornell's iconic clock tower and grounds. The visit gave participants a real sense of the precision, discipline, and career opportunities inside a working nanofabrication facility.</p>
+
+        <!-- Tom's writeup -->
+        <div style="border-left:3px solid rgba(6,182,212,0.5); padding:14px 16px; background:rgba(6,182,212,0.04); border-radius:0 8px 8px 0; margin-top:8px;">
+          <p style="color:#67e8f9; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">From <a href="https://www.linkedin.com/in/thomas-pennell/" target="_blank" style="color:#67e8f9; text-decoration:underline; text-decoration-color:rgba(103,232,249,0.3);">Thomas Pennell</a> — Process Integration Specialist &amp; Workforce Development Program Manager at Cornell Nanoscale Facility</p>
+          <p style="margin-bottom:10px;">The <a href="https://www.linkedin.com/company/cornell-nanoscale-facility/" target="_blank" style="color:#67e8f9; text-decoration:underline; text-decoration-color:rgba(103,232,249,0.3);">Cornell NanoScale Science and Technology Facility (CNF)</a> hosted adult learners from <a href="https://www.linkedin.com/company/syracuse-university/" target="_blank" style="color:#67e8f9; text-decoration:underline; text-decoration-color:rgba(103,232,249,0.3);">Syracuse University</a>'s Q-SUCCEED-CNY program led by <a href="https://www.linkedin.com/in/mo-hasanovic-068798361/" target="_blank" style="color:#67e8f9; text-decoration:underline; text-decoration-color:rgba(103,232,249,0.3);">Mo Hasanovic</a>. These students were new to the United States and the program gave them the opportunity to explore careers in the semiconductor industry in the classroom, in VR and finally in person at CNF.</p>
+          <p style="margin-bottom:10px;">I took the students through the lab in groups and showed the steps in fabricating a device in real time! When it came time for inspection, they were blown away at a 200 &mu;m wide <a href="https://www.linkedin.com/company/cornell-university/" target="_blank" style="color:#67e8f9; text-decoration:underline; text-decoration-color:rgba(103,232,249,0.3);">Cornell University</a> logo under the microscope. They were awestruck when I played a video on my cell phone under a microscope and they got to see the micro-LEDs changing color in front of their eyes.</p>
+          <p style="margin-bottom:10px;">What an amazing group of people! I am so proud to take part in a program like this that embraces people from Afghanistan, the Republic of Congo and Cuba and shows them the best of what our country has to offer!</p>
+          <p style="color:#64748b; font-style:italic;">Side note: we have cleanroom suits that comfortably fit a person that is 7' tall and has size 15 shoes!</p>
+        </div>
+      </div>
+      <p style="color:#64748b; font-size:0.85rem; margin-bottom:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">📷 Trip Photos</p>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;" id="ft-photos">
+        <img src="Qsucceed%20photos/FT/img%20(1).jpeg" alt="FT 1" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(2).jpeg" alt="FT 2" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(3).jpeg" alt="FT 3" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(4).jpeg" alt="FT 4" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(5).jpeg" alt="FT 5" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(6).jpeg" alt="FT 6" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(7).jpeg" alt="FT 7" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(8).jpeg" alt="FT 8" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(9).jpeg" alt="FT 9" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(10).jpeg" alt="FT 10" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(11).jpeg" alt="FT 11" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(12).jpeg" alt="FT 12" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(13).jpeg" alt="FT 13" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img.jpeg" alt="FT 14" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(15).jpeg" alt="FT 15" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(16).jpeg" alt="FT 16" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(17).jpeg" alt="FT 17" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(18).jpeg" alt="FT 17" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/FT/img%20(19).jpg" alt="FT 17" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+      </div>
     </div>
   </div>
 
@@ -383,6 +761,16 @@ After the lecture, participants got hands-on experience working with a Vacuum Tr
     document.body.style.overflow = '';
   }
 
+  /* ── Field Trip modal ── */
+  function openFieldTrip() {
+    document.getElementById('ftModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeFieldTrip() {
+    document.getElementById('ftModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
   /* ── Photo Lightbox ── */
   let lbPhotos = [];
   let lbIndex = 0;
@@ -431,13 +819,43 @@ After the lecture, participants got hands-on experience working with a Vacuum Tr
       if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % lbPhotos.length; showLbPhoto(); }
       return;
     }
-    if (e.key === 'Escape') { close(); closeLecture(); }
+    if (e.key === 'Escape') { close(); closeLecture(); closeFieldTrip(); }
   });
 
   /* ── Program card click ── */
   document.querySelectorAll('.program-card').forEach(c => c.addEventListener('click', () => open(c)));
   modal.querySelector('.detail-close').addEventListener('click', close);
   modal.querySelector('.detail-backdrop').addEventListener('click', close);
+
+  /* ── Field Trip floating particles ── */
+  (function initFTParticles() {
+    const container = document.getElementById('ftParticles');
+    if (!container) return;
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement('div');
+      p.className = 'ft-particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (4 + Math.random() * 6) + 's';
+      p.style.animationDelay = (Math.random() * 8) + 's';
+      p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+      container.appendChild(p);
+    }
+  })();
+
+  /* ── Scroll reveal for field trip ── */
+  (function initReveal() {
+    const els = document.querySelectorAll('.ft-reveal');
+    if (!els.length) return;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(el => obs.observe(el));
+  })();
 </script>
 </body>
 </html>
