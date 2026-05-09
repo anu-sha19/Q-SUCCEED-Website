@@ -346,6 +346,82 @@ body {
 .desktop-nav a:hover::before {
   opacity: 1;
 }
+/* Hamburger Button */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 101;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: #0a1152;
+  border-radius: 2px;
+  transition: 0.3s ease;
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  transition: right 0.3s ease;
+  padding: 30px;
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
+.mobile-menu-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 32px;
+  background: none;
+  border: none;
+  color: #0a1152;
+  cursor: pointer;
+}
+
+.mobile-menu nav {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-menu nav a {
+  display: block;
+  padding: 14px 0;
+  color: #0a1152;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(10, 17, 82, 0.1);
+  transition: color 0.3s ease;
+}
+
+.mobile-menu nav a:hover {
+  color: #e36515;
+}
+
+@media (max-width: 968px) {
+  .hamburger {
+    display: flex;
+  }
+}
 
 /* Hero Section - Full Image Visible */
 .hero {
