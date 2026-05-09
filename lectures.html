@@ -378,6 +378,313 @@
         background: linear-gradient(135deg, #0ea5e9, #6366f1, #a855f7);
       }
     }
+    /* ===== WORKSHOP — EDITORIAL SPREAD ===== */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;700&display=swap');
+
+    .ws-spread {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 480px;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      background: #0f1320;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: box-shadow 0.5s, border-color 0.4s;
+    }
+    .ws-spread:hover {
+      border-color: rgba(245,158,11,0.25);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(245,158,11,0.1);
+    }
+
+    /* ── LEFT PANEL: Hero Photo ── */
+    .ws-left {
+      position: relative;
+      overflow: hidden;
+    }
+    .ws-left img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 8s ease-out;
+    }
+    .ws-spread:hover .ws-left img {
+      transform: scale(1.06);
+    }
+
+    /* Gradient fade on right edge into the right panel */
+    .ws-left::after {
+      content: "";
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 80px;
+      background: linear-gradient(90deg, transparent, #0f1320);
+      z-index: 1;
+    }
+    /* Bottom gradient for the overline text */
+    .ws-left::before {
+      content: "";
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 140px;
+      background: linear-gradient(to top, rgba(15,19,32,0.9), transparent);
+      z-index: 1;
+    }
+
+    /* Overline text at bottom-left of photo */
+    .ws-left-label {
+      position: absolute;
+      bottom: 20px;
+      left: 24px;
+      z-index: 2;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #f59e0b;
+    }
+
+    /* ── RIGHT PANEL: Content ── */
+    .ws-right {
+      display: flex;
+      flex-direction: column;
+      padding: 36px 32px 28px;
+      position: relative;
+    }
+
+    /* Gold accent line at top */
+    .ws-right::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 32px;
+      width: 48px;
+      height: 3px;
+      background: #f59e0b;
+      border-radius: 2px;
+    }
+
+    .ws-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #f59e0b;
+      margin-bottom: 12px;
+      margin-top: 8px;
+    }
+
+    .ws-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .ws-headline em {
+      font-style: italic;
+      color: #fbbf24;
+    }
+
+    .ws-lede {
+      font-family: 'DM Sans', sans-serif;
+      color: #94a3b8;
+      font-size: 0.88rem;
+      line-height: 1.65;
+      margin-bottom: 24px;
+      max-width: 380px;
+    }
+
+    /* ── Vertical Day Steps ── */
+    .ws-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 24px;
+      flex: 1;
+    }
+
+    .ws-step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .ws-step:last-child { border-bottom: none; }
+
+    .ws-step-marker {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.25);
+      color: #fbbf24;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .ws-spread:hover .ws-step-marker {
+      background: rgba(245,158,11,0.15);
+      border-color: rgba(245,158,11,0.4);
+    }
+
+    .ws-step-marker--ft {
+      background: rgba(6,182,212,0.1);
+      border-color: rgba(6,182,212,0.25);
+      color: #67e8f9;
+    }
+    .ws-spread:hover .ws-step-marker--ft {
+      background: rgba(6,182,212,0.15);
+      border-color: rgba(6,182,212,0.4);
+    }
+
+    .ws-step-marker--grad {
+      background: rgba(168,85,247,0.1);
+      border-color: rgba(168,85,247,0.25);
+      color: #c084fc;
+    }
+    .ws-spread:hover .ws-step-marker--grad {
+      background: rgba(168,85,247,0.15);
+      border-color: rgba(168,85,247,0.4);
+    }
+
+    .ws-step-text {
+      font-family: 'DM Sans', sans-serif;
+      color: #cbd5e1;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+    .ws-step-text strong {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* ── Photo Mosaic ── */
+    .ws-mosaic {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 3px;
+      margin-bottom: 18px;
+    }
+    .ws-mosaic img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 4px;
+      filter: brightness(0.6);
+      transition: filter 0.3s, transform 0.3s;
+    }
+    .ws-mosaic img:hover {
+      filter: brightness(0.95);
+      transform: scale(1.08);
+      z-index: 1;
+      position: relative;
+    }
+
+    /* ── Bottom bar: Industry + CTA ── */
+    .ws-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .ws-partners {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      color: #475569;
+      letter-spacing: 0.04em;
+    }
+    .ws-partners span {
+      color: #94a3b8;
+    }
+
+    .ws-cta-link {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #f59e0b;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.3s;
+    }
+    .ws-spread:hover .ws-cta-link {
+      gap: 10px;
+    }
+    .ws-cta-link svg {
+      transition: transform 0.3s;
+    }
+    .ws-spread:hover .ws-cta-link svg {
+      transform: translateX(3px);
+    }
+
+    /* ── Modal day cards (amber/cyan/purple themed) ── */
+    .ws-modal-day {
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      background: rgba(245,158,11,0.05);
+      border: 1px solid rgba(245,158,11,0.12);
+    }
+    .ws-modal-day--ft {
+      background: rgba(6,182,212,0.05);
+      border-color: rgba(6,182,212,0.12);
+    }
+    .ws-modal-day--grad {
+      background: rgba(168,85,247,0.05);
+      border-color: rgba(168,85,247,0.12);
+    }
+    .ws-modal-day-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      color: #fbbf24;
+    }
+    .ws-modal-day--ft .ws-modal-day-label { color: #67e8f9; }
+    .ws-modal-day--grad .ws-modal-day-label { color: #c084fc; }
+    .ws-modal-day-text {
+      color: #cbd5e1;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    /* ── Responsive: Stack on mobile ── */
+    @media (max-width: 768px) {
+      .ws-spread {
+        grid-template-columns: 1fr;
+      }
+      .ws-left {
+        height: 240px;
+      }
+      .ws-left::after {
+        width: 0;
+      }
+      .ws-right {
+        padding: 24px 20px 20px;
+      }
+      .ws-right::before {
+        left: 20px;
+      }
+      .ws-mosaic {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -658,26 +965,136 @@ After the lecture, participants got hands-on experience working with a Vacuum Tr
     </div>
   </div>
 
-  <!-- FIVE-DAY BOOTCAMP -->
+<!-- ===== FIVE-DAY BOOTCAMP — EDITORIAL SPREAD ===== -->
   <div class="section-block">
     <div class="section-header">
-      <span class="section-chip">Five-Day Workshop</span>
-      <h2 class="section-title">Immersive Sprint</h2>
-      <p class="section-desc">One week to build confidence: day-by-day cadence mixing labs, career huddles, and demos for learners entering the talent pipeline.</p>
+      <span class="section-chip" style="background:rgba(245,158,11,0.1); border-color:rgba(245,158,11,0.3); color:#fbbf24;">Five-Day Workshop</span>
+      <p class="section-desc">An intensive five-day workshop from April 27 – May 1, 2026, combining classroom lectures, hands-on semiconductor and quantum lab activities, a cleanroom field trip, job preparedness workshops, industry connections, and a graduation ceremony</p>
     </div>
-    <div class="card-grid">
-      <article class="program-card" data-chip="Bootcamp" data-title="Days 1-2: Foundations" data-meta="Safety • Basics • Tools" data-desc="Ramp quickly on safety, ESD, optics handling, and measurement so learners can contribute by mid-week." data-bullets="ESD, PPE, and lab etiquette|Measurement bootstraps|Concept primers without heavy math" data-photos="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80">
-        <div class="card-media"><span class="card-pill">Day 1-2</span><img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1200&q=80" alt="Foundation days"></div>
-        <div class="card-meta"><h3>Days 1-2: Foundations</h3><p class="meta-line"></p><p class="card-kicker">Immersive start</p></div>
-      </article>
-      <article class="program-card" data-chip="Bootcamp" data-title="Days 3-4: Build & Test" data-meta="Hands-On • Pair Work" data-desc="Teams assemble and test small rigs—sensor boards, optics alignments, or simple QKD demos—to mirror real technician work." data-bullets="Assembly + alignment challenges|Test plans and data capture|Peer reviews for quality" data-photos="https://images.unsplash.com/photo-1554474059-6c1dc69b6d2b?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=900&q=80">
-        <div class="card-media"><span class="card-pill">Day 3-4</span><img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80" alt="Build and test days"></div>
-        <div class="card-meta"><h3>Days 3-4: Build & Test</h3><p class="meta-line"></p><p class="card-kicker">Peer builds</p></div>
-      </article>
-      <article class="program-card" data-chip="Bootcamp" data-title="Day 5: Demo Day + Career" data-meta="Showcase • Hiring Pathways" data-desc="Teams present, get feedback from mentors, and connect to hiring partners with clear next steps." data-bullets="Live demos and retros|Feedback from industry mentors|Next-step coaching and job leads" data-photos="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80,https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80">
-        <div class="card-media"><span class="card-pill">Day 5</span><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80" alt="Demo day"></div>
-        <div class="card-meta"><h3>Day 5: Demo Day + Career</h3><p class="meta-line"></p><p class="card-kicker">Connect to hiring</p></div>
-      </article>
+
+    <div class="ws-spread ft-reveal" onclick="openWorkshop()">
+
+      <!-- LEFT: Hero Photo -->
+      <div class="ws-left">
+        <img src="Qsucceed%20photos/workshop/img%20(13).jpeg" alt="Five-Day Workshop">
+        <span class="ws-left-label">April 27 – May 1, 2026</span>
+      </div>
+
+      <!-- RIGHT: Content -->
+      <div class="ws-right">
+        <h3 class="ws-headline">Five-Day<br><em>Immersive</em> Workshop</h3>
+        <p class="ws-lede">Lectures, labs, a CNF cleanroom field trip, job prep, and industry networking in 5 days.</p>
+
+        <!-- Vertical Day Steps -->
+        <div class="ws-steps">
+          <div class="ws-step">
+            <div class="ws-step-marker">MON</div>
+            <div class="ws-step-text"><strong>Lectures & Labs</strong> — Mo, TTM, MACNY</div>
+          </div>
+          <div class="ws-step">
+            <div class="ws-step-marker">TUE</div>
+            <div class="ws-step-text"><strong>Job Prep & TDO</strong> — Ethan, Jeffrey, Mo</div>
+          </div>
+          <div class="ws-step">
+            <div class="ws-step-marker ws-step-marker--ft">WED</div>
+            <div class="ws-step-text"><strong>CNF Field Trip</strong> — Cleanroom tour, Ithaca</div>
+          </div>
+          <div class="ws-step">
+            <div class="ws-step-marker">THU</div>
+            <div class="ws-step-text"><strong>Quantum Lab</strong> — Ethan, Ben (OCC)</div>
+          </div>
+          <div class="ws-step">
+            <div class="ws-step-marker ws-step-marker--grad">FRI</div>
+            <div class="ws-step-text"><strong>Graduation</strong> — OCC, SU, Ceremony 🎓</div>
+          </div>
+        </div>
+
+        <!-- Photo Mosaic (5x3 grid of 15 photos) -->
+        <div class="ws-mosaic">
+          <img src="Qsucceed%20photos/workshop/img%20(1).jpeg" alt="WS 1">
+          <img src="Qsucceed%20photos/workshop/img%20(2).jpeg" alt="WS 2">
+          <img src="Qsucceed%20photos/workshop/img%20(3).jpeg" alt="WS 3">
+          <img src="Qsucceed%20photos/workshop/img%20(4).jpeg" alt="WS 4">
+          <img src="Qsucceed%20photos/workshop/img%20(5).jpeg" alt="WS 5">
+          <img src="Qsucceed%20photos/workshop/img%20(6).jpeg" alt="WS 6">
+          <img src="Qsucceed%20photos/workshop/img%20(7).jpeg" alt="WS 7">
+          <img src="Qsucceed%20photos/workshop/img%20(8).jpeg" alt="WS 8">
+          <img src="Qsucceed%20photos/workshop/img%20(9).jpeg" alt="WS 9">
+          <img src="Qsucceed%20photos/workshop/img%20(10).jpeg" alt="WS 10">
+          <img src="Qsucceed%20photos/workshop/img%20(11).jpeg" alt="WS 11">
+          <img src="Qsucceed%20photos/workshop/img%20(12).jpeg" alt="WS 12">
+          <img src="Qsucceed%20photos/workshop/img%20(13).jpeg" alt="WS 13">
+          <img src="Qsucceed%20photos/workshop/img%20(14).jpeg" alt="WS 14">
+          <img src="Qsucceed%20photos/workshop/img%20(15).jpeg" alt="WS 15">
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="ws-bottom">
+          <div class="ws-cta-link">View Details <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKSHOP MODAL -->
+  <div class="detail-modal" id="wsModal">
+    <div class="detail-backdrop" onclick="closeWorkshop()"></div>
+    <div class="detail-card" style="max-width:760px;">
+      <button class="detail-close" onclick="closeWorkshop()">&times;</button>
+      <div class="detail-head">
+        <span class="detail-chip" style="background:rgba(245,158,11,0.15); border-color:rgba(245,158,11,0.35); color:#fbbf24;">5-Day Bootcamp</span>
+        <p class="detail-meta">April 27 – May 1, 2026 · Syracuse University &amp; CNF Ithaca</p>
+      </div>
+      <p style="color:#64748b; font-size:0.85rem; margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Workshop Overview</p>
+      <div style="background:#0d1226; border:1px dashed rgba(255,255,255,0.12); border-radius:10px; padding:16px; color:#94a3b8; font-size:0.9rem; line-height:1.7; min-height:80px; margin-bottom:24px;">
+        <p style="margin-bottom:12px;">The last five days condensed the full Q-SUCCEED-CNY experience into an intensive bootcamp. Participants attended daily lectures and lab activities covering semiconductor fundamentals and quantum technologies, led by instructors Mo, Ethan, and Alex J.</p>
+        <p style="margin-bottom:12px;">On Monday and Tuesday, participants dove into foundational lectures, semiconductor and quantum lab activities, a job preparedness workshop with Jeffrey, and TDO sessions. Wednesday featured the highlight of the week - a field trip to the Cornell NanoScale Science and Technology Facility (CNF) in Ithaca, where participants toured the cleanroom and observed real wafer processing. Thursday brought more advanced quantum lab activities with lectures from Professor Ethan and a session with Ben from OCC. The week culminated on Friday with visits to the OCC Engineering and Manufacturing center and the SU College of Professional Studies, followed by a graduation ceremony celebrating the participants' achievements.</p>
+        <p style="margin-bottom:12px;">Additional activities throughout the week included an SU campus tour and a visit to CNY Works. Industry partners were involved, connecting participants directly to hiring pathways in the tech field.</p>
+      </div>
+
+      <!-- Day-by-day breakdown -->
+      <p style="color:#64748b; font-size:0.85rem; margin-bottom:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">📅Schedule</p>
+      <div style="display:grid; gap:8px; margin-bottom:24px;">
+        <div class="ws-modal-day">
+          <p class="ws-modal-day-label">Monday, April 27</p>
+          <p class="ws-modal-day-text">Lecture (Mo) · Coffee Break · TTM Session · MACNY Visit · Lunch · Semiconductor &amp; Quantum Lab Activity)</p>
+        </div>
+        <div class="ws-modal-day">
+          <p class="ws-modal-day-label">Tuesday, April 28</p>
+          <p class="ws-modal-day-text">Lecture (Ethan) · Job Preparedness Workshop (Jeffrey) · Lunch · TDO Session · Coffee Break · Lecture (Mo)</p>
+        </div>
+        <div class="ws-modal-day ws-modal-day--ft">
+          <p class="ws-modal-day-label">Wednesday, April 29 — Field Trip</p>
+          <p class="ws-modal-day-text">Full-day field trip to Cornell NanoScale Science &amp; Technology Facility (CNF) in Ithaca — cleanroom tour and campus exploration</p>
+        </div>
+        <div class="ws-modal-day">
+          <p class="ws-modal-day-label">Thursday, April 30</p>
+          <p class="ws-modal-day-text">Semiconductor &amp; Quantum Lab Activity · Lunch · Lecture (Ethan) · Coffee Break · Session with Ben (OCC)</p>
+        </div>
+        <div class="ws-modal-day ws-modal-day--grad">
+          <p class="ws-modal-day-label">Friday, May 1 — Graduation</p>
+          <p class="ws-modal-day-text">OCC Engineering &amp; Manufacturing Center · Session with Alex J · SU College of Professional Studies· Lunch · Graduation Ceremony 🎓</p>
+        </div>
+      </div>
+
+      <p style="color:#64748b; font-size:0.85rem; margin-bottom:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">📷 Workshop Photos</p>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;" id="ws-photos">
+        <img src="Qsucceed%20photos/workshop/img%20(1).jpeg" alt="WS 1" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(2).jpeg" alt="WS 2" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(3).jpeg" alt="WS 3" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(4).jpeg" alt="WS 4" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(5).jpeg" alt="WS 5" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(6).jpeg" alt="WS 6" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(7).jpeg" alt="WS 7" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(8).jpeg" alt="WS 8" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(9).jpeg" alt="WS 9" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(10).jpeg" alt="WS 10" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(11).jpeg" alt="WS 11" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(12).jpeg" alt="WS 12" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(13).jpeg" alt="WS 13" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(14).jpeg" alt="WS 14" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+        <img src="Qsucceed%20photos/workshop/img%20(15).jpeg" alt="WS 15" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; cursor:zoom-in;" onclick="openLightbox(this)">
+      </div>
     </div>
   </div>
 
@@ -819,7 +1236,7 @@ After the lecture, participants got hands-on experience working with a Vacuum Tr
       if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % lbPhotos.length; showLbPhoto(); }
       return;
     }
-    if (e.key === 'Escape') { close(); closeLecture(); closeFieldTrip(); }
+    if (e.key === 'Escape') { close(); closeLecture(); closeFieldTrip(); closeWorkshop(); }
   });
 
   /* ── Program card click ── */
@@ -856,6 +1273,16 @@ After the lecture, participants got hands-on experience working with a Vacuum Tr
     }, { threshold: 0.15 });
     els.forEach(el => obs.observe(el));
   })();
+
+  /* ── Workshop modal ── */
+  function openWorkshop() {
+    document.getElementById('wsModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeWorkshop() {
+    document.getElementById('wsModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
 </script>
 </body>
 </html>
