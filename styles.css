@@ -346,6 +346,7 @@ body {
 .desktop-nav a:hover::before {
   opacity: 1;
 }
+
 /* Hamburger Button */
 .hamburger {
   display: none;
@@ -1137,6 +1138,24 @@ body {
     grid-template-columns: 1fr;
     gap: 40px;
   }
+
+  /* Hide long descriptions on mobile */
+  .desktop-only {
+    display: none !important;
+  }
+
+  /* Hide the duplicate companies used for seamless loop */
+  .companies-list .company:nth-child(n+7) {
+    display: none;
+  }
+
+  /* Stop the scroll animation */
+  .companies-list {
+    animation: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
 }
 
 ::selection {
@@ -1146,18 +1165,4 @@ body {
 
 html {
   scroll-behavior: smooth;
-}
-@media (max-width: 768px) {
-  /* Hide the duplicate companies used for seamless loop */
-  .companies-list .company:nth-child(n+7) {
-    display: none;
-  }
-  
-  /* Stop the scroll animation */
-  .companies-list {
-    animation: none;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
 }
