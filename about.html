@@ -35,13 +35,13 @@
       color:#e5e7eb;
       font-size:1.25rem;
     }
-    .navbar nav a{
+    .navbar .desktop-nav a{
       margin-left: 1.6rem;
       text-decoration:none;
       color:#cbd5e1;
       font-weight:600;
     }
-    .navbar nav a:hover{ color:#ffffff; }
+    .navbar .desktop-nav a:hover{ color:#ffffff; }
 
     /* BACKGROUND */
     .bg{
@@ -476,6 +476,72 @@
       .about-card{ padding: 2rem; }
       .treasure{ width: 90%; height: 200px; }
     }
+
+    /* ===== HAMBURGER BUTTON ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+      z-index: 101;
+    }
+    .hamburger span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: #cbd5e1;
+      border-radius: 2px;
+      transition: 0.3s ease;
+    }
+
+    /* ===== MOBILE MENU OVERLAY ===== */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: #0b1220;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.4);
+      z-index: 1000;
+      transition: right 0.3s ease;
+      padding: 30px;
+    }
+    .mobile-menu.active { right: 0; }
+    .mobile-menu-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 32px;
+      background: none;
+      border: none;
+      color: #cbd5e1;
+      cursor: pointer;
+    }
+    .mobile-menu nav {
+      margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+    }
+    .mobile-menu nav a {
+      display: block;
+      padding: 14px 0;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: color 0.3s ease;
+    }
+    .mobile-menu nav a:hover { color: #fff; }
+
+    @media (max-width: 768px) {
+      .desktop-nav { display: none; }
+      .hamburger { display: flex; }
+    }
   </style>
 </head>
 
@@ -483,12 +549,30 @@
 
   <header class="navbar">
     <div class="logo">Q-SUCCEED-CNY</div>
-    <nav>
+    <nav class="desktop-nav">
       <a href="index.html">Home</a>
+      <a href="news.html">News</a>
+      <a href="lectures.html">Lectures/Labs</a>
+      <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
       <a href="apply.html">Apply</a>
     </nav>
+    <button class="hamburger" aria-label="Menu" onclick="document.querySelector('.mobile-menu').classList.add('active')">
+      <span></span><span></span><span></span>
+    </button>
   </header>
+
+  <div class="mobile-menu">
+    <button class="mobile-menu-close" onclick="this.parentElement.classList.remove('active')">&times;</button>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="news.html">News</a>
+      <a href="lectures.html">Lectures/Labs</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="apply.html">Apply</a>
+    </nav>
+  </div>
 
   <main class="bg">
 
