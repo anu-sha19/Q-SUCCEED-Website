@@ -683,6 +683,15 @@
       .ws-mosaic {
         grid-template-columns: repeat(5, 1fr);
       }
+    }
+    @media (max-width: 640px) {
+      .ft-hero { height: 260px; }
+      .ft-info-strip { flex-wrap: wrap; }
+      .ft-info-cell { flex: 1 1 50%; }
+      .ft-info-cell:nth-child(2) { border-right: none; }
+      .ft-hero-content { padding: 20px 20px 16px; }
+      .ft-subtitle { display: none; }
+    }
       /* Hamburger Button */
     .hamburger {
       display: none;
@@ -748,7 +757,7 @@
       .desktop-nav { display: none; }
       .hamburger { display: flex; }
     }
-    }
+  
 
   </style>
 </head>
@@ -1049,7 +1058,7 @@ After the lecture, participants got hands-on experience working with a Vacuum Tr
   <div class="section-block">
     <div class="section-header">
       <span class="section-chip" style="background:rgba(245,158,11,0.1); border-color:rgba(245,158,11,0.3); color:#fbbf24;">Five-Day Workshop</span>
-      <p class="section-desc">An intensive five-day workshop from April 27 – May 1, 2026, combining classroom lectures, hands-on semiconductor and quantum lab activities, a cleanroom field trip, job preparedness workshops, industry connections, and a graduation ceremony</p>
+      <p class="section-desc">Our intensive five-day workshop from April 27 – May 1</p>
     </div>
 
     <div class="ws-spread ft-reveal" onclick="openWorkshop()">
@@ -1062,7 +1071,7 @@ After the lecture, participants got hands-on experience working with a Vacuum Tr
 
       <!-- RIGHT: Content -->
       <div class="ws-right">
-        <h3 class="ws-headline">Five-Day<br><em>Immersive</em> Workshop</h3>
+        <h3 class="ws-headline">Five-Day Immersive Workshop</h3>
         <p class="ws-lede">Lectures, labs, a CNF cleanroom field trip, job prep, and industry networking in 5 days.</p>
 
         <!-- Vertical Day Steps -->
