@@ -1185,13 +1185,17 @@ html {
 }
 
 @media (max-width: 768px) {
-  .team-name-link {
-    text-decoration: underline;
+  .nsf-logo-inline {
+    width: 30px;
+    margin-top: 5px;
   }
 
+  .team-name-link,
   .team-name-link:hover,
   .team-name-link:focus,
-  .team-name-link:active {
+  .team-name-link:active,
+  .team-name-link:visited {
+    color: inherit;
     text-decoration: underline;
   }
 }
