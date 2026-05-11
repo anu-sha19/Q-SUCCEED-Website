@@ -1166,3 +1166,53 @@ body {
 html {
   scroll-behavior: smooth;
 }
+.team-name-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.team-name-link:hover {
+  color: #e36515;
+  text-decoration: underline;
+}
+
+.team-name-link:focus,
+.team-name-link:active,
+.team-name-link:visited {
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .team-name-link {
+    text-decoration: underline;
+  }
+
+  .team-name-link:hover,
+  .team-name-link:focus,
+  .team-name-link:active {
+    text-decoration: underline;
+  }
+}
+
+.intro-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.nsf-logo-inline {
+  width: 55px;
+  height: auto;
+  flex-shrink: 0;
+  margin-top: -35px;
+}
+
+@media (max-width: 768px) {
+  .nsf-logo-inline {
+    width: 40px;
+    margin-top: -35px;
+  }
+}
